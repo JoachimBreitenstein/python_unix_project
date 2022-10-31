@@ -60,3 +60,27 @@ def age_distribution(people_dict):
             age_dict["100+"] += 1
     return age_dict
 
+# Gender distribution for exercise 1
+def gender_distribution(people_dict):
+    """    
+    Function which takes all the data from a dictonary and finds the gender distribution.
+    The result is a dict with woman and man as keys and count as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and list with gender in position [10] as values.
+
+    Returns
+    -------
+    gender_dict : dict
+        dict with woman and man as keys and count as values
+    """
+    gender_distribution = {"woman":0, "man":0}
+    for keys in people_dict.keys():
+        if people_dict[keys][10] == "woman":
+            gender_distribution["woman"] += 1
+
+        if people_dict[keys][10] == "man":
+            gender_distribution["man"] += 1
+    return gender_distribution
