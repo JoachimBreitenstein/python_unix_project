@@ -2,6 +2,7 @@
 
 import re
 import sys
+#from 01_func_file import *
 
 if len(sys.argv) == 1:
     print("No filename was given")
@@ -79,7 +80,16 @@ for line in infile:
                 if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR, None, None]
 
-print(people_dict["050354-4664"])
+#print(people_dict["050354-4664"])
+
+
+#first time fatherhood 
+#year: 2000
+
+fathers_age = []
+
+for key in people_dict: 
+    print(people_dict[key])
 
 
 
