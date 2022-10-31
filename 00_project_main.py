@@ -21,17 +21,31 @@ if len(sys.argv) == 2:
         sys.exit(1)
 
 # People_dict is a dictionary with a person's CPR as key and the value is a list of:
-# [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, grand parents]
+# [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, grand parents, Age, Gender]
 people_dict = {}
 
 for line in infile:
 
     if line[:3] == "CPR":
+        # Finding CPR number
         cpr_search = re.search(r'(\d{6}\-\d{4})', line)
         CPR = cpr_search.group(1)
-        if CPR not in people_dict.keys():
-            people_dict[CPR] = [None, None, None, None, None, None, None, None, None]
 
+        # Finding age
+        age = 100-int(CPR[4:6])
+
+        # Finding the gender of the person
+        if CPR[-1] in (2,4,6,8):
+            gender = "woman"
+        if CPR[-1] in (1,3,5,7,9):
+            gender = "man"
+
+        # Adding age and gender to dictionary
+        if CPR not in people_dict.keys():
+            people_dict[CPR] = [None, None, None, None, None, None, None, None, None, age, gender]
+        else:
+            people_dict[CPR][9] = age
+            people_dict[CPR][10] = gender
 
     if line[0:10] == "First name":
         people_dict[CPR][0] = line[12:-1]
@@ -56,15 +70,15 @@ for line in infile:
         for i in range(len(people_dict[CPR][6])):
 
             if people_dict[CPR][6][i] in people_dict.keys():
-                if CPR[-1] in ("2","4","6","8"):
+                if people_dict[CPR][10] == "woman":
                     people_dict[people_dict[CPR][6][i]][7] = CPR
-                if CPR[-1] in ("1","3","5","7","9"):
+                if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]][8] = CPR
 
             else:
-                if CPR[-1] in ("2","4","6","8"):
+                if people_dict[CPR][10] == "woman":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, CPR, None]
-                if CPR[-1] in ("1","3","5","7","9"):
+                if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR]
 
 #print(people_dict["050354-4664"])
