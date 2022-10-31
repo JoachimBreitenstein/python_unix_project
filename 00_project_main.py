@@ -22,7 +22,6 @@ if len(sys.argv) == 2:
 # People_dict is a dictionary with a person's CPR as key and the value is a list of:
 # [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, grand parents, Age, Gender]
 people_dict = {}
-
 for line in infile:
 
     if line[:3] == "CPR":
@@ -34,9 +33,9 @@ for line in infile:
         age = 100-int(CPR[4:6])
 
         # Finding the gender of the person
-        if CPR[-1] in (2,4,6,8):
+        if int(CPR[-1]) in [2,4,6,8]:
             gender = "woman"
-        if CPR[-1] in (1,3,5,7,9):
+        if int(CPR[-1]) in [1,3,5,7,9]:
             gender = "man"
 
         # Adding age and gender to dictionary
@@ -76,9 +75,9 @@ for line in infile:
 
             else:
                 if people_dict[CPR][10] == "woman":
-                    people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, CPR, None]
+                    people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, CPR, None, None, None]
                 if people_dict[CPR][10] == "man":
-                    people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR]
+                    people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR, None, None]
 
 print(people_dict["050354-4664"])
 
