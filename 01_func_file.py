@@ -15,3 +15,6 @@ Returns
 result_string : string
     reversed complement string with newline every 60 bp
 """
+
+
+

@@ -87,16 +87,15 @@ for line in infile:
 #first time fatherhood 
 #year: 2000
 
-#constructing list of ages
-fathers_age = []
-
 #iterate through all fathers ages and subtract age of oldest child from fathers age
 for key in people_dict.keys(): 
-    if people_dict[key][11] == "man" and len(people_dict[key][6]) > 0: 
+    if people_dict[key][10] == "man" and people_dict[key][6] is not None: 
         
         age_list = []
+        
         for i in people_dict[key][6]:
-            age_list.append(people_dict[i][10])
-            
-        print(int(people_dict[key][11]) - int(max(age_list)))
+            age_list.append(people_dict[i][9])
+        
+        if int(people_dict[key][9]) - int(max(age_list)) > 10 
+        print(int(people_dict[key][9]) - int(max(age_list)))
 
