@@ -3,7 +3,7 @@
 from curses import KEY_UNDO
 import re
 import sys
-#from 01_func_file import *
+from func_file import *
 
 if len(sys.argv) == 1:
     print("No filename was given")
@@ -84,18 +84,7 @@ for line in infile:
 #print(people_dict["050354-4664"])
 
 
-#first time fatherhood 
-#year: 2000
 
-#iterate through all fathers ages and subtract age of oldest child from fathers age
-for key in people_dict.keys(): 
-    if people_dict[key][10] == "man" and people_dict[key][6] is not None: 
-        
-        age_list = []
-        
-        for i in people_dict[key][6]:
-            age_list.append(people_dict[i][9])
-        
-        if int(people_dict[key][9]) - int(max(age_list)) > 10 
-        print(int(people_dict[key][9]) - int(max(age_list)))
+first_time_parent(people_dict, gender)
+
 
