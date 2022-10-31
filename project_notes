@@ -1,4 +1,6 @@
 Python unix project notes: 
+- probably a good idea to make a func_file from which we import functions to main script 
+
 
 program is run by: 
 project_main.py people.db

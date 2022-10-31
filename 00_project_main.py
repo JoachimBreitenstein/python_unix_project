@@ -52,7 +52,7 @@ for line in infile:
 
     if line[:8] == "Children":
         people_dict[CPR][6] = re.findall(r'\d{6}\-\d{4}', line)
-        for i in range(len(people_dict[CPR[6]])):
+        for i in range(len(people_dict[CPR][6])):
 
             if people_dict[CPR][6][i] in people_dict.keys():
                 if CPR[-1] in ("2","4","6","8"):
@@ -66,4 +66,7 @@ for line in infile:
                 if CPR[-1] in ("1","3","5","7","9"):
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR]
 
-print(people_dict[230226-9781])
+print(people_dict["050354-4664"])
+
+
+
