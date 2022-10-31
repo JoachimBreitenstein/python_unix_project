@@ -84,3 +84,36 @@ def gender_distribution(people_dict):
         if people_dict[keys][10] == "man":
             gender_distribution["man"] += 1
     return gender_distribution
+
+def childless_distribution(people_dict):
+    """    
+    Function which takes all the data from a dictonary and finds the gender distribution.
+    The result is a dict with woman and man as keys and percent of not having children as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and list, with children in position [6] and gender in position [10], as values.
+
+    Returns
+    -------
+    childless_dict : dict
+        dict with woman and man as keys and count in percent as values
+    """
+
+    count_women = 0
+    count_men = 0
+    childless_dict = {"woman":0, "man":0}
+    for keys in people_dict.keys():
+        if people_dict[keys][10] == "woman":
+            count_women += 1
+            if people_dict[keys][6] is None:
+                childless_dict["woman"] += 1
+        elif people_dict[keys][10] == "man":
+            count_men += 1
+            if people_dict[keys][6] is None:
+                childless_dict["man"] += 1
+    
+    childless_dict["woman"] = childless_dict["woman"]/(count_women+childless_dict["woman"]) * 100
+    childless_dict["man"] = childless_dict["man"]/(count_men+childless_dict["man"]) * 100
+    return childless_dict
