@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-#template for function descriptions:
+#TEMPLATE FOR FUNCTION DESCRIPTIONS
 """
 Function which take a dna string as an input.
 The function returns the reversed complement string with newlines for every 60 base pairs
