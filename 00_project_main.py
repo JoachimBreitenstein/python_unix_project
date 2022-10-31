@@ -1,5 +1,6 @@
 #! /usr/bin/env python3
 
+from curses import KEY_UNDO
 import re
 import sys
 #from 01_func_file import *
@@ -86,10 +87,15 @@ for line in infile:
 #first time fatherhood 
 #year: 2000
 
-fathers_age = []
-
-for key in people_dict: 
-    print(people_dict[key])
-
-
+#iterate through all fathers ages and subtract age of oldest child from fathers age
+for key in people_dict.keys(): 
+    if people_dict[key][10] == "man" and people_dict[key][6] is not None: 
+        
+        age_list = []
+        
+        for i in people_dict[key][6]:
+            age_list.append(people_dict[i][9])
+        
+        if int(people_dict[key][9]) - int(max(age_list)) > 10 
+        print(int(people_dict[key][9]) - int(max(age_list)))
 
