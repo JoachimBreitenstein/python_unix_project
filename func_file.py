@@ -214,3 +214,38 @@ def grandparent(people_dict):
                             grandparent_dict[keys].append(element)
     
     return grandparent_dict
+
+# Function for exercise 8
+def grandparent_alive(grandparent_dict, people_dict):
+    """
+    Function which takes a dict with grandparents as keys and grandchildren as values, and the dict with the whole dataset
+    The function returns a list with number of grandchildren in position [0] and percentage of people with grandparent in position [1]
+
+    Parameters
+    ----------
+    grandparent_dict: dict
+        Grandparents as keys and their grandchildren as values
+
+    people_dict : dict
+        CPR numbers as keys
+    
+    Returns
+    -------
+     grandparent_alive: list
+        list with number of people with a grandparent alive as position [0] and percent of the total people in position [1]
+    """
+
+    # Finds the number of people in the dict
+    total_people = len(people_dict)
+
+    # Makes a set of all the grandchildren
+    grandchildren = set()
+    for keys in grandparent_dict.keys():
+        for element in grandparent_dict[keys]:
+            grandchildren.add(element)
+    
+    # makes list of people with grandparent alive and percent of total set
+    grandparent_alive = [len(grandchildren), len(grandchildren)/total_people*100]
+    
+    return grandparent_alive
+    
