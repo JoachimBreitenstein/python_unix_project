@@ -85,4 +85,3 @@ for line in infile:
 age_dict = first_time_parent(people_dict, "man")
 for key in age_dict:
     print(key, ":", age_dict[key])
-

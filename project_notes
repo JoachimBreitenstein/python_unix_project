@@ -29,8 +29,8 @@ infile = "people.db"
 
 6. How many men and women do not have children (in percent)?
 7. What is the average age difference between the parents (with a child in common obviously)?
-8. How many people has at least one grandparent that is still alive? A person is living if he/she is in the database. State the number both in percent and as a real number.
-9. For those who have cousins, what is the average number of cousins?
+8. How many people has at least one grandparent that is still alive? A person is living if he/she is in the database. State the number both in percent and as a real number. (DONE)
+9. For those who have cousins, what is the average number of cousins? (DONE)
 10. Is the firstborn likely to be male or female?
 11. How many men/women (percentage) have children with more than one woman/man?
 12. Do tall people marry (or at least get children together)? To answer that, calculate the percentages of tall/tall, tall/normal, tall/short, normal/normal, normal/short, and short/short couples. Decide your own limits for tall, normal and short, and if they are the same for men and women.

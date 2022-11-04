@@ -186,4 +186,39 @@ def grandparent_alive(grandparent_dict, people_dict):
     # makes list of people with grandparent alive and percent of total set
     grandparent_alive = [len(grandchildren), len(grandchildren)/total_people*100]
     return grandparent_alive
+
+def cousins(grandparent_dict, people_dict):
+    """
+    Function which takes a dict with grandparents as keys and grandchildren as values, and the dict with the whole dataset
+    The function returns a list with number of grandchildren in position [0] and percentage of people with grandparent in position [1]
+
+    Parameters
+    ----------
+    grandparent_dict: dict
+        Grandparents as keys and their grandchildren as values
+
+    people_dict : dict
+        CPR numbers as keys
     
+    Returns
+    -------
+     cousins_average: float
+        The average numbers of cousins
+    """
+
+    cousins_list = []
+    cousins_kid = 0
+    for keys in grandparent_dict:
+        if len(grandparent_dict[keys]) > 1:
+            for i in range(len(grandparent_dict[keys])):
+                if cousins_kid != 0:
+                    cousins_list.append(cousins_kid)
+                    cousins_kid = 0
+                kid = grandparent_dict[keys][i]
+                for j in range(len(grandparent_dict[keys])):
+                    if people_dict[kid][7] != people_dict[grandparent_dict[keys][j]][7] and people_dict[kid][8] != people_dict[grandparent_dict[keys][j]][8]:
+                        cousins_kid += 1
+    
+    average_cousins = sum(cousins_list)/len(cousins_list)
+    
+    return average_cousins
