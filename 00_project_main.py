@@ -1,6 +1,6 @@
 #! /usr/bin/env python3
 
-from curses import KEY_UNDO
+
 import re
 import sys
 from func_file import *
