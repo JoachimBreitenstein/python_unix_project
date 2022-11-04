@@ -5,7 +5,7 @@ import re
 import sys
 from func_file import *
 
-if len(sys.argv) == 1:
+:
     print("No filename was given")
     try:
         infile = open(input("Please enter the filename: "), "r")
@@ -84,7 +84,6 @@ for line in infile:
 #print(people_dict["050354-4664"])
 
 
-
-first_time_parent(people_dict, gender)
-
-
+age_dict = first_time_parent(people_dict, "mother")
+for key in age_dict:
+    print(key, ":", age_dict[key])
