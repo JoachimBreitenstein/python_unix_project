@@ -103,17 +103,23 @@ def childless_distribution(people_dict):
 
     count_women = 0
     count_men = 0
-    childless_dict = {"woman":0, "man":0}
+    count_all = 0
+    childless_dict = {"woman":0, "man":0, "all":0}
     for keys in people_dict.keys():
         if people_dict[keys][10] == "woman":
             count_women += 1
+            count_all += 1
             if people_dict[keys][6] is None:
                 childless_dict["woman"] += 1
+                childless_dict["all"] += 1
         elif people_dict[keys][10] == "man":
+            count_all += 1
             count_men += 1
             if people_dict[keys][6] is None:
                 childless_dict["man"] += 1
+                childless_dict["all"] += 1
     
-    childless_dict["woman"] = childless_dict["woman"]/(count_women+childless_dict["woman"]) * 100
-    childless_dict["man"] = childless_dict["man"]/(count_men+childless_dict["man"]) * 100
+    childless_dict["woman"] = childless_dict["woman"]/count_women * 100
+    childless_dict["man"] = childless_dict["man"]/count_men * 100
+    childless_dict["all"] = childless_dict["all"]/count_all* 100
     return childless_dict
