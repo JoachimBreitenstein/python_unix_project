@@ -85,6 +85,7 @@ def gender_distribution(people_dict):
             gender_distribution["man"] += 1
     return gender_distribution
 
+# childless_distribution function for exercise 6
 def childless_distribution(people_dict):
     """    
     Function which takes all the data from a dictonary and finds the gender distribution.
@@ -123,3 +124,33 @@ def childless_distribution(people_dict):
     childless_dict["man"] = childless_dict["man"]/count_men * 100
     childless_dict["all"] = childless_dict["all"]/count_all* 100
     return childless_dict
+
+# Function for exercise 8, 9, 17
+def grandparent(people_dict):
+    """
+    Function which takes all the data from a dictonary.
+    The function returns a dict with the grandcparents as keys and grandchildren as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and children in position [6] in values
+
+    Returns
+    -------
+    grandparent_dict : dict
+        dict with grandparents as keys and list of grandchildren as values.
+    """
+    grandparent_dict = dict()
+
+    for keys in people_dict:
+        if people_dict[keys][6] is not None:
+            for kids in people_dict[keys][6]:
+                if people_dict[kids][6] is not None:
+                    for element in people_dict[kids][6]:
+                        if keys not in grandparent_dict:
+                            grandparent_dict[keys] = element
+                        if element in grandparent_dict:
+                            grandparent_dict[keys].append(element)
+    
+    return grandparent_dict

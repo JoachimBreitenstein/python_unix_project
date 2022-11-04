@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-
 import re
 import sys
 from func_file import *
@@ -21,7 +20,7 @@ if len(sys.argv) == 2:
         sys.exit(1)
 
 # People_dict is a dictionary with a person's CPR as key and the value is a list of:
-# [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, grand parents, Age, Gender]
+# [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, Age, Gender]
 people_dict = {}
 for line in infile:
 

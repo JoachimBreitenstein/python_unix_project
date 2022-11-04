@@ -60,7 +60,30 @@ def age_distribution(people_dict):
             age_dict["100+"] += 1
     return age_dict
 
+# Gender distribution for exercise 1
+def gender_distribution(people_dict):
+    """    
+    Function which takes all the data from a dictonary and finds the gender distribution.
+    The result is a dict with woman and man as keys and count as values
 
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and list with gender in position [10] as values.
+
+    Returns
+    -------
+    gender_dict : dict
+        dict with woman and man as keys and count as values
+    """
+    gender_distribution = {"woman":0, "man":0}
+    for keys in people_dict.keys():
+        if people_dict[keys][10] == "woman":
+            gender_distribution["woman"] += 1
+
+        if people_dict[keys][10] == "man":
+            gender_distribution["man"] += 1
+    return gender_distribution
 
 def first_time_parent(people_dict, gender): 
     
@@ -121,5 +144,73 @@ def first_time_parent(people_dict, gender):
         print("The maximum age for first time fathers is:", max_age)
                 
     return age_dict
-        
-        
+
+# childless_distribution function for exercise 6
+def childless_distribution(people_dict):
+    """    
+    Function which takes all the data from a dictonary and finds the gender distribution.
+    The result is a dict with woman and man as keys and percent of not having children as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and list, with children in position [6] and gender in position [10], as values.
+
+    Returns
+    -------
+    childless_dict : dict
+        dict with woman and man as keys and count in percent as values
+    """
+
+    count_women = 0
+    count_men = 0
+    count_all = 0
+    childless_dict = {"woman":0, "man":0, "all":0}
+    for keys in people_dict.keys():
+        if people_dict[keys][10] == "woman":
+            count_women += 1
+            count_all += 1
+            if people_dict[keys][6] is None:
+                childless_dict["woman"] += 1
+                childless_dict["all"] += 1
+        elif people_dict[keys][10] == "man":
+            count_all += 1
+            count_men += 1
+            if people_dict[keys][6] is None:
+                childless_dict["man"] += 1
+                childless_dict["all"] += 1
+    
+    childless_dict["woman"] = childless_dict["woman"]/count_women * 100
+    childless_dict["man"] = childless_dict["man"]/count_men * 100
+    childless_dict["all"] = childless_dict["all"]/count_all* 100
+    return childless_dict
+
+# Function for exercise 8, 9, 17
+def grandparent(people_dict):
+    """
+    Function which takes all the data from a dictonary.
+    The function returns a dict with the grandcparents as keys and grandchildren as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and children in position [6] in values
+
+    Returns
+    -------
+    grandparent_dict : dict
+        dict with grandparents as keys and list of grandchildren as values.
+    """
+    grandparent_dict = dict()
+
+    for keys in people_dict:
+        if people_dict[keys][6] is not None:
+            for kids in people_dict[keys][6]:
+                if people_dict[kids][6] is not None:
+                    for element in people_dict[kids][6]:
+                        if keys not in grandparent_dict:
+                            grandparent_dict[keys] = element
+                        if element in grandparent_dict:
+                            grandparent_dict[keys].append(element)
+    
+    return grandparent_dict
