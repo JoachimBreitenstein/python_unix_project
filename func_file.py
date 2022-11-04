@@ -209,8 +209,8 @@ def grandparent(people_dict):
                 if people_dict[kids][6] is not None:
                     for element in people_dict[kids][6]:
                         if keys not in grandparent_dict:
-                            grandparent_dict[keys] = element
-                        if element in grandparent_dict:
+                            grandparent_dict[keys] = [element]
+                        if keys in grandparent_dict:
                             grandparent_dict[keys].append(element)
     
     return grandparent_dict
