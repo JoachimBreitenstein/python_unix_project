@@ -123,3 +123,6 @@ def childless_distribution(people_dict):
     childless_dict["man"] = childless_dict["man"]/count_men * 100
     childless_dict["all"] = childless_dict["all"]/count_all* 100
     return childless_dict
+
+
+

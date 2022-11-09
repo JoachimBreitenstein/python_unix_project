@@ -123,3 +123,21 @@ def first_time_parent(people_dict, gender):
     return age_dict
         
         
+
+def avg_age_diff(people_dict):
+    
+    parents_count = 0
+    age_diff_sum = 0
+
+    #find people with a child in common --> iterate through people --> if people[key] in two entries --> calc average age (print)
+    for key, value in people_dict.items(): 
+        if value[7] and value[8] is not None: 
+            parents_count += 2
+        
+            #summing age diff of all parents
+            age_diff_sum += abs(int(people_dict[value[7]][9]) - int(people_dict[value[8]][9]))
+            
+    return age_diff_sum / parents_count
+
+
+
