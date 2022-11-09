@@ -85,6 +85,7 @@ def gender_distribution(people_dict):
             gender_distribution["man"] += 1
     return gender_distribution
 
+# childless_distribution function for exercise 6
 def childless_distribution(people_dict):
     """    
     Function which takes all the data from a dictonary and finds the gender distribution.
@@ -124,5 +125,105 @@ def childless_distribution(people_dict):
     childless_dict["all"] = childless_dict["all"]/count_all* 100
     return childless_dict
 
+<<<<<<< HEAD
 
 
+=======
+# Function for exercise 8, 9, 17
+def grandparent(people_dict):
+    """
+    Function which takes all the data from a dictonary.
+    The function returns a dict with the grandcparents as keys and grandchildren as values
+
+    Parameters
+    ----------
+    people_dict : dict
+        CPR numbers as keys and children in position [6] in values
+
+    Returns
+    -------
+    grandparent_dict : dict
+        dict with grandparents as keys and list of grandchildren as values.
+    """
+    grandparent_dict = dict()
+
+    for keys in people_dict:
+        if people_dict[keys][6] is not None:
+            for kids in people_dict[keys][6]:
+                if people_dict[kids][6] is not None:
+                    for element in people_dict[kids][6]:
+                        if keys not in grandparent_dict:
+                            grandparent_dict[keys] = element
+                        if element in grandparent_dict:
+                            grandparent_dict[keys].append(element)
+    
+    return grandparent_dict
+
+def grandparent_alive(grandparent_dict, people_dict):
+    """
+    Function which takes a dict with grandparents as keys and grandchildren as values, and the dict with the whole dataset
+    The function returns a list with number of grandchildren in position [0] and percentage of people with grandparent in position [1]
+
+    Parameters
+    ----------
+    grandparent_dict: dict
+        Grandparents as keys and their grandchildren as values
+
+    people_dict : dict
+        CPR numbers as keys
+    
+    Returns
+    -------
+     grandparent_alive: list
+        list with number of people with a grandparent alive as position [0] and percent of the total people in position [1]
+    """
+
+    # Finds the number of people in the dict
+    total_people = len(people_dict)
+
+    # Makes a set of all the grandchildren
+    grandchildren = set()
+    for keys in grandparent_dict.keys():
+        for element in grandparent_dict[keys]:
+            grandchildren += element
+    
+    # makes list of people with grandparent alive and percent of total set
+    grandparent_alive = [len(grandchildren), len(grandchildren)/total_people*100]
+    return grandparent_alive
+
+def cousins(grandparent_dict, people_dict):
+    """
+    Function which takes a dict with grandparents as keys and grandchildren as values, and the dict with the whole dataset
+    The function returns a list with number of grandchildren in position [0] and percentage of people with grandparent in position [1]
+
+    Parameters
+    ----------
+    grandparent_dict: dict
+        Grandparents as keys and their grandchildren as values
+
+    people_dict : dict
+        CPR numbers as keys
+    
+    Returns
+    -------
+     cousins_average: float
+        The average numbers of cousins
+    """
+
+    cousins_list = []
+    cousins_kid = 0
+    for keys in grandparent_dict:
+        if len(grandparent_dict[keys]) > 1:
+            for i in range(len(grandparent_dict[keys])):
+                if cousins_kid != 0:
+                    cousins_list.append(cousins_kid)
+                    cousins_kid = 0
+                kid = grandparent_dict[keys][i]
+                for j in range(len(grandparent_dict[keys])):
+                    if people_dict[kid][7] != people_dict[grandparent_dict[keys][j]][7] and people_dict[kid][8] != people_dict[grandparent_dict[keys][j]][8]:
+                        cousins_kid += 1
+    
+    average_cousins = sum(cousins_list)/len(cousins_list)
+    
+    return average_cousins
+>>>>>>> 0b96a2e3a7f9b7c130719814aeaae03955e23138
