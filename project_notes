@@ -10,26 +10,29 @@ infile = "people.db"
 
 
 
-1. Is the age and gender distribution normal/sensible in the database? A yes/no answer is not good enough.
+1. Is the age and gender distribution normal/sensible in the database? A yes/no answer is not good enough. (DONE)
 - do string search for age and gender in each line and add match to respective list 
 - make count_dicts for age and gender from lists 
 
-2. At what age does the men become fathers first time (max age, min age, average age)?
+2. At what age does the men become fathers first time (max age, min age, average age)? (DONE)
 - make "father_dict" and calculate max, min and avg by iterating over values 
 - stateful parsing over file --> write into new file --> extract all ages from new file and calculate max, min and avg age
 
-3. Is the distribution of first-time fatherhood age normal/sensible? A yes/no answer is not good enough.
+3. Is the distribution of first-time fatherhood age normal/sensible? A yes/no answer is not good enough. (DONE)
 - find matches from father_file with only one children match --> make count_dict 
 
-4. At what age does the women become mothers first time (max age, min age, average age)?
+4. At what age does the women become mothers first time (max age, min age, average age)? (DONE)
 - same problem as 3)
 
-5. Is the distribution of first-time motherhood age normal/sensible? A yes/no answer is not good enough.
+5. Is the distribution of first-time motherhood age normal/sensible? A yes/no answer is not good enough. (DONE)
 
 
-6. How many men and women do not have children (in percent)?
-7. What is the average age difference between the parents (with a child in common obviously)?
+6. How many men and women do not have children (in percent)? (DONE)
+
+7. What is the average age difference between the parents (with a child in common obviously)? (DONE)
+
 8. How many people has at least one grandparent that is still alive? A person is living if he/she is in the database. State the number both in percent and as a real number.
+
 9. For those who have cousins, what is the average number of cousins?
 10. Is the firstborn likely to be male or female?
 11. How many men/women (percentage) have children with more than one woman/man?
