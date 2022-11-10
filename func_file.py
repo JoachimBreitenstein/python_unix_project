@@ -390,3 +390,19 @@ def notRealParent(people_dict):
     return bastard
 
 
+# fatherDonatefor exercise 16
+def fatherDonate(people_dict):
+    """
+    
+    """
+    donated = False
+    count_sons = 0
+    for key in people_dict.keys():
+        if people_dict[key][10] == "man" and people_dict[key][6] is not None:
+            fatherblood = people_dict[key][5]
+            for child in people_dict[key][6]:
+                if people_dict[child][10] == "man":
+                    if people_dict[child][5][-1] == "-" or (people_dict[child][5][-1] == "+" and fatherblood[-1] == "+"):
+                        if fatherblood[:-1] == "O" or people_dict[child][5][:-1] == "AB":
+                            donated = True
+                            count_sons += 1

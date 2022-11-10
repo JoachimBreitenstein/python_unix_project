@@ -20,7 +20,7 @@ if len(sys.argv) == 2:
         sys.exit(1)
 
 # People_dict is a dictionary with a person's CPR as key and the value is a list of:
-# [First name, Last name, Height, Weight, Eye colour, Blood type, Children, Mother, Father, Age, Gender]
+# [First name[0], Last name[1], Height[2], Weight[3], Eye colour[4], Blood type[5], Children[6], Mother[7], Father[8], Age[9], Gender[10]]
 people_dict = {}
 for line in infile:
 
