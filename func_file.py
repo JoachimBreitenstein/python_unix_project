@@ -87,7 +87,8 @@ def gender_distribution(people_dict):
 
 def first_time_parent(people_dict, gender):
 
-    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
+    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, 
+                "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
     min_age = 100 #theoretically should be set to max age
     max_age = 0
     age_sum = 0
@@ -146,32 +147,32 @@ def first_time_parent(people_dict, gender):
     return age_dict
 
 
-    def avg_age_diff(people_dict):
-        """
-        Function that calculates the average age difference between first time parents.
+def avg_age_diff(people_dict):
+    """
+    Function that calculates the average age difference between first time parents.
 
-        Parameters
-        ----------
-        people_dict: dict
-            CPR numbers are keys, each with a list of values describing information about each key. Index 7 = cpr of mother, Index 8 = CPR of father, Index 10 = age.
+    Parameters
+    ----------
+    people_dict: dict
+        CPR numbers are keys, each with a list of values describing information about each key. Index 7 = cpr of mother, Index 8 = CPR of father, Index 10 = age.
 
-        Returns
-        -------
-            Average age of first time parents.
-        """
+    Returns
+    -------
+        Average age of first time parents.
+    """
         
-        parents_count = 0
-        age_diff_sum = 0
+    parents_count = 0
+    age_diff_sum = 0
 
-        #find people with a child in common --> iterate through people --> if people[key] in two entries --> calc average age (print)
-        for key, value in people_dict.items():
-            if value[7] and value[8] is not None:
-                parents_count += 2
+    #find people with a child in common --> iterate through people --> if people[key] in two entries --> calc average age (print)
+    for key, value in people_dict.items():
+        if value[7] and value[8] is not None:
+            parents_count += 2
 
-                #summing age diff of all parents
-                age_diff_sum += abs(int(people_dict[value[7]][9]) - int(people_dict[value[8]][9]))
+            #summing age diff of all parents
+            age_diff_sum += abs(int(people_dict[value[7]][9]) - int(people_dict[value[8]][9]))
 
-        return age_diff_sum / parents_count
+    return age_diff_sum / parents_count
 
 # childless_distribution function for exercise 6
 def childless_distribution(people_dict):
@@ -313,3 +314,42 @@ def cousins(grandparent_dict, people_dict):
     average_cousins = sum(cousins_list)/len(cousins_list)
 
     return average_cousins
+
+def firstborn_gender_likelyhood(people_dict):
+     """
+    Function which takes people_dict and returns a list with the probability of the firstborn being male or female, respectively.
+
+    Parameters
+    ---------
+    people_dict : dict
+          CPR numbers as keys
+
+    Returns
+    -------
+    List with probabilities: [probability of firstborn being female, probability of firstborn being male]
+    
+    """    
+    man_count = 0
+    woman_count = 0
+    man_count = 0
+    children_count = 0
+
+    for key in people_dict.keys(): 
+        if people_dict[key][6] is not None:
+        children_count += 1         
+        
+        #construct new dict for children with age and gender
+        children_dict = {}
+        
+        for i in people_dict[key][6]: 
+            children_dict[i] = [people_dict[i][10], people_dict[i][11]]
+        
+        oldest_child = children_dict[max(children_dict, key = children_dict.get)]
+        
+        if people_dict[oldest_child][11] == "woman": 
+            woman_count += 1
+        if people_dict[oldest_child][11] == "man": 
+            man_count += 1
+
+
+    return [woman_count / children_count, man_count / children_count] * 100

@@ -80,9 +80,7 @@ for line in infile:
                 if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR, None, None]
 
-#print(people_dict["050354-4664"])
-
-
+#Distribution of first time parents
 age_dict = first_time_parent(people_dict, "man")
 for key in age_dict:
     print(key, ":", age_dict[key])
@@ -96,23 +94,7 @@ print("The average age difference between parents is:", mean_age_diff)
 
 
 #is the firstborn likely to be male of female
-#firrst time fathers --> gender of first born child --> save to list and 
-
-man_count = 0
-woman_count = 0
-man_count = 0
-children_count = 0
-
-for key in people_dict.keys(): 
-    if people_dict[key][9] is not None:
-        children_count += 1         
-
-        #find oldest child and save gender (count)
-        for i in people_dict[key][6]: 
-            if people_dict[i][10] == "woman": 
-                 woman_count += 1
-            if people_dict[i][10] == "man": 
-                man_count += 1
 
 
-#return [woman_count / children_count, man_count / children_count] * 100
+#How many men and women have children with more than one partner? 
+
