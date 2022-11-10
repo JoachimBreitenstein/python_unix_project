@@ -226,4 +226,25 @@ def cousins(grandparent_dict, people_dict):
     average_cousins = sum(cousins_list)/len(cousins_list)
     
     return average_cousins
->>>>>>> 0b96a2e3a7f9b7c130719814aeaae03955e23138
+
+def notRealParent(people_dict):
+    """
+    
+    """
+    for key in people_dict.keys():
+        childblood = people_dict[key][5]
+        fatherblood = people_dict[people_dict[key][8]][5]
+        motherblood = people_dict[people_dict[key][7]][5]
+
+        bastard = list()
+        if childblood[-1] == "+" and fatherblood[-1] == "-" and motherblood[-1] == "-":
+            bastard.append(key)
+        elif childblood[:-1] == "AB" and fatherblood[:-1] != "AB" or motherblood[:-1] != "AB":
+            if fatherblood[:-1]+motherblood[:-1] not in (["AB", "BA"]):
+                bastard.append(key)
+        elif childblood[:-1] != "O" and childblood[:-1] not in fatherblood and childblood[:-1] not in motherblood:
+            bastard.append(key)
+
+    return bastard 
+
+
