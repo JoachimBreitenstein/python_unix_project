@@ -87,7 +87,8 @@ def gender_distribution(people_dict):
 
 def first_time_parent(people_dict, gender):
 
-    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
+    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, 
+                "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
     min_age = 100 #theoretically should be set to max age
     max_age = 0
     age_sum = 0
@@ -313,3 +314,77 @@ def cousins(grandparent_dict, people_dict):
     average_cousins = sum(cousins_list)/len(cousins_list)
 
     return average_cousins
+
+def firstborn_gender_likelyhood(people_dict):
+    """
+    Function which takes people_dict and returns a list with the probability of the firstborn being male or female, respectively.
+
+    Parameters
+    ---------
+    people_dict : dict
+          CPR numbers as keys
+
+    Returns
+    -------
+    List with probabilities: [probability of firstborn being female, probability of firstborn being male]
+    
+    """    
+    man_count = 0
+    woman_count = 0
+    man_count = 0
+    children_count = 0
+
+    for key in people_dict.keys(): 
+        if people_dict[key][6] is not None:
+            children_count += 1         
+        
+        #construct new dict for children with age and gender
+        children_dict = {}
+        
+        for i in people_dict[key][6]: 
+            children_dict[i] = [people_dict[i][10], people_dict[i][11]]
+        
+        oldest_child = children_dict[max(children_dict, key = children_dict.get)]
+        
+        if people_dict[oldest_child][11] == "woman": 
+            woman_count += 1
+        if people_dict[oldest_child][11] == "man": 
+            man_count += 1
+
+
+    return [woman_count / children_count, man_count / children_count] * 100
+
+
+
+# Function for exercise 15
+def notRealParent(people_dict):
+    """
+    Function which takes people_dict and returns a list with the children with at least one non-biological parent
+
+    Parameters
+    ---------
+    people_dict : dict
+          CPR numbers as keys
+
+    Returns
+    -------
+    bastard: List
+    List with CPR of children with at least one non-biological parent
+    """
+    for key in people_dict.keys():
+        if people_dict[key][8] == None or people_dict[key][7] == None:
+            continue
+        childblood = people_dict[key][5]
+        fatherblood = people_dict[people_dict[key][8]][5]
+        motherblood = people_dict[people_dict[key][7]][5]
+
+        bastard = list()
+        if childblood[-1] == "+" and fatherblood[-1] == "-" and motherblood[-1] == "-":
+            bastard.append(key)
+        elif childblood[:-1] == "AB" and fatherblood[:-1] != "AB" or motherblood[:-1] != "AB":
+            if fatherblood[:-1]+motherblood[:-1] not in (["AB", "BA"]):
+                bastard.append(key)
+        elif childblood[:-1] != "O" and childblood[:-1] not in fatherblood and childblood[:-1] not in motherblood:
+            bastard.append(key)
+
+    return bastard 
