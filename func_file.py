@@ -381,10 +381,12 @@ def notRealParent(people_dict):
         bastard = list()
         if childblood[-1] == "+" and fatherblood[-1] == "-" and motherblood[-1] == "-":
             bastard.append(key)
-        elif childblood[:-1] == "AB" and fatherblood[:-1] != "AB" or motherblood[:-1] != "AB":
+        elif childblood[:-1] == "AB" and (fatherblood[:-1] != "AB" or motherblood[:-1] != "AB"):
             if fatherblood[:-1]+motherblood[:-1] not in (["AB", "BA"]):
                 bastard.append(key)
         elif childblood[:-1] != "O" and childblood[:-1] not in fatherblood and childblood[:-1] not in motherblood:
             bastard.append(key)
 
-    return bastard 
+    return bastard
+
+

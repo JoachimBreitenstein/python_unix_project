@@ -1,6 +1,5 @@
 #! /usr/bin/env python3
 
-from curses import KEY_UNDO
 import re
 import sys
 from func_file import *
@@ -97,4 +96,3 @@ print("The average age difference between parents is:", mean_age_diff)
 
 
 #How many men and women have children with more than one partner? 
-
