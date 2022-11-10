@@ -146,32 +146,32 @@ def first_time_parent(people_dict, gender):
     return age_dict
 
 
-    def avg_age_diff(people_dict):
-        """
-        Function that calculates the average age difference between first time parents.
+def avg_age_diff(people_dict):
+    """
+    Function that calculates the average age difference between first time parents.
 
-        Parameters
-        ----------
-        people_dict: dict
-            CPR numbers are keys, each with a list of values describing information about each key. Index 7 = cpr of mother, Index 8 = CPR of father, Index 10 = age.
+    Parameters
+    ----------
+    people_dict: dict
+        CPR numbers are keys, each with a list of values describing information about each key. Index 7 = cpr of mother, Index 8 = CPR of father, Index 10 = age.
 
-        Returns
-        -------
-            Average age of first time parents.
-        """
-        
-        parents_count = 0
-        age_diff_sum = 0
+    Returns
+    -------
+        Average age of first time parents.
+    """
+    
+    parents_count = 0
+    age_diff_sum = 0
 
-        #find people with a child in common --> iterate through people --> if people[key] in two entries --> calc average age (print)
-        for key, value in people_dict.items():
-            if value[7] and value[8] is not None:
-                parents_count += 2
+    #find people with a child in common --> iterate through people --> if people[key] in two entries --> calc average age (print)
+    for key, value in people_dict.items():
+        if value[7] and value[8] is not None:
+            parents_count += 2
 
-                #summing age diff of all parents
-                age_diff_sum += abs(int(people_dict[value[7]][9]) - int(people_dict[value[8]][9]))
+            #summing age diff of all parents
+            age_diff_sum += abs(int(people_dict[value[7]][9]) - int(people_dict[value[8]][9]))
 
-        return age_diff_sum / parents_count
+    return age_diff_sum / parents_count
 
 # childless_distribution function for exercise 6
 def childless_distribution(people_dict):
