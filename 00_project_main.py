@@ -119,46 +119,57 @@ taskbreak = "___________________________________________________________________
 age_dist = age_distribution(people_dict)
 print("Age distribution\n", file=outfile)
 print("Age\tCount", file=outfile)
-for key in age_dist.keys():
-    print(key, age_dist[key], sep="\t", file=outfile)
+for key, value in age_dist.items():
+    print(key, value, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
 
 #Gender
 gender_dist = gender_distribution(people_dict)
 print("Gender distribution\n", file=outfile)
 print("Gender\tCount", file=outfile)
-for key in gender_dist.keys():
-    print(key, gender_dist[key], sep="\t", file=outfile)
+for key, value in gender_dist.items():
+    print(key, value, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
 
 # 2. min, max, avg of first time fathers
 firstTimeFather = first_time_parent(people_dict, "man")
+print("Minimum, maximun and average age for first time fathers\n", file=outfile)
+print("The average age for first time fathers is:", "{:0.2f}".format(firstTimeFather["Avg"]), file=outfile)
+print("The minimum age for first time fathers is:", firstTimeFather["Min"], file=outfile)
+print("The maximum age for first time fathers is:", firstTimeFather["Max"], file=outfile)
 print(taskbreak, file=outfile)
 
 # 3. Age distribution of first time fathers
 print("Age distribution of first time fathers\n", file=outfile)
 print("Age\tCount", file=outfile)
-for key in firstTimeFather.keys():
-    print(key, firstTimeFather[key], sep="\t", file=outfile)
+for key, value in firstTimeFather.items():
+    if key not in ["Min","Max","Avg"]:
+        print(key, value, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
 
 # 4. min, max, avg of first time mothers
 firstTimeMother = first_time_parent(people_dict, "woman")
+print("Minimum, maximun and average age for first time mothers\n", file=outfile)
+print("The average age for first time mothers is:", "{:0.2f}".format(firstTimeMother["Avg"]), file=outfile)
+print("The minimum age for first time mothers is:", firstTimeMother["Min"], file=outfile)
+print("The maximum age for first time mothers is:", firstTimeMother["Max"], file=outfile)
+print(taskbreak, file=outfile)
 print(taskbreak, file=outfile)
 
 # 5. Age distribution of first time mothers
 print("Age distribution of first time mothers\n", file=outfile)
 print("Age\tCount", file=outfile)
-for key in firstTimeMother.keys():
-    print(key, firstTimeMother[key], sep="\t", file=outfile)
+for key, value in firstTimeMother.items():
+    if key not in ["Min","Max","Avg"]:
+        print(key, value, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
 
 # 6. Percentage of men and woman without children
 childless = childless_distribution(people_dict)
 print("Distribution of men and women without children\n", file=outfile)
 print("Gender\tPercentage", file=outfile)
-for key in childless.keys():
-    print(key,"\t", "{:0.2f}".format(childless[key]),"%" , file=outfile)
+for key, value in childless.items():
+    print(key,"\t", "{:0.2f}".format(value),"%" , file=outfile)
 print(taskbreak, file=outfile)
 
 # 7. Average age difference between parents
@@ -171,7 +182,7 @@ grandparent_dict = grandparent(people_dict)
 grandparentAlive = grandparent_alive(grandparent_dict, people_dict)
 print("People with at least one grandparent alive\n", file=outfile)
 print("People with grandparents alive:", grandparentAlive[0], sep="\t\t", file=outfile )
-print("Percentage of the total population:","\t", grandparentAlive[1], "%", sep="", file=outfile)
+print("Percentage of the total population:","\t", grandparentAlive[1], " %", sep="", file=outfile)
 print(taskbreak, file=outfile)
 
 # 9. Average number of cousins
@@ -181,7 +192,53 @@ print("The average number of cousins for people with cousins is:", "{:0.2f}".for
 print(taskbreak, file=outfile)
 
 # 10. Firstborn's gender
-
-print("The likehood of the firstborn's gender")
+prop_gender = firstborn_gender_likelyhood(people_dict)
+print("The likehood of the firstborn's gender\n", file=outfile)
+print("Male:", "\t", "{:0.2f}".format(prop_gender[0]), " %", sep="", file=outfile)
+print("Female:", "\t", "{:0.2f}".format(prop_gender[1]), " %", sep="", file=outfile)
+print(taskbreak, file=outfile)
 
 # 11. Men and women with children with different partners
+
+print("Men and Women with children with different partners\n", file=outfile)
+print(taskbreak, file=outfile)
+
+# 12. Do tall people marry
+
+print("Percentage of couples based on their heights\n", file=outfile)
+
+# 13. Do tall parents get tall children
+
+# 14. Do fat people marry
+
+# 15. Does anyone have a not real parent according to bloodtype
+notrealparent_list = notRealParent(people_dict)
+print("Children with a not real parent according to their blood type\n", file=outfile)
+if notrealparent_list == []:
+    print("No one can safely be said to have a not real parent", file=outfile)
+else:
+    for child in notrealparent_list:
+        print("child",file=outfile)
+print(taskbreak, file=outfile)
+
+# 16. Fathers there can donate blood to a son
+father_donate = fatherSonDonate(people_dict)
+count_son_receive = 0
+for element in father_donate:
+    count_son_receive += len(element[1])
+
+print("Fathers there can donate blood to their sons\n", file=outfile)
+print("Number of fathers there can donate blood:", len(father_donate), sep="\t", file=outfile)
+print("Number of sons there can receive blood:", count_son_receive, sep="\t", file=outfile)
+print(taskbreak, file=outfile)
+
+# 17. Grandchildren there can donate blood to a grandparent
+grandchild_donate = grandchildDonate(grandparent_dict, people_dict)
+count_grandchild_donate = 0
+for element in grandchild_donate:
+    count_grandchild_donate += len(element[1])
+
+print("Grandchildren there can donate blood to a grandparent\n", file=outfile)
+print("Number of grandparents there can receive blood:", len(grandchild_donate), sep="\t", file=outfile)
+print("Number of grandchildren there can donate blood:", count_grandchild_donate, sep="\t", file=outfile)
+print(taskbreak, file=outfile)

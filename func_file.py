@@ -103,8 +103,8 @@ def first_time_parent(people_dict, gender):
         - Age of oldest first time parent
         - Average age of first time parents
     """
-    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0,
-                "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
+    age_dict = {"15-19":0, "20-24":0, "25-29":0, "30-34":0, "35-39":0,
+                "40+":0, "Min":0, "Max":0, "Avg":0}
     min_age = 100 #theoretically should be set to max age
     max_age = 0
     age_sum = 0
@@ -127,29 +127,23 @@ def first_time_parent(people_dict, gender):
             if age <= min_age:
                 min_age = age
 
-            if age >= 10 and age < 20:
-                age_dict["10-19"] += 1
-            if age >= 20 and age < 30:
-                age_dict["20-29"] += 1
-            if age >= 30 and age < 40:
-                age_dict["30-39"] += 1
-            if age >= 40 and age < 50:
-                age_dict["40-49"] += 1
-            if age >= 50 and age < 60:
-                age_dict["50-59"] += 1
-            if age >= 60 and age < 70:
-                age_dict["60-69"] += 1
-            if age >= 70 and age < 80:
-                age_dict["70-79"] += 1
-            if age >= 80 and age < 90:
-                age_dict["80-89"] += 1
-            if age >= 90 and age < 100:
-                age_dict["90-99"] += 1
-            if age >= 100:
-                age_dict["100+"] += 1
+            if age >= 15 and age < 20:
+                age_dict["15-19"] += 1
+            if age >= 20 and age < 25:
+                age_dict["20-24"] += 1
+            if age >= 25 and age < 30:
+                age_dict["25-29"] += 1
+            if age >= 30 and age < 35:
+                age_dict["30-34"] += 1
+            if age >= 35 and age < 40:
+                age_dict["35-39"] += 1
+            if age >= 40:
+                age_dict["40+"] += 1
 
     avg_age = age_sum / gender_count
-
+    age_dict["Min"] = min_age
+    age_dict["Max"] = max_age
+    age_dict["Avg"] = avg_age
     if gender == "woman":
         print("The average age for first time mothers is:", avg_age)
         print("The minimum age for first time mothers is:", min_age)
@@ -342,7 +336,7 @@ def firstborn_gender_likelyhood(people_dict):
 
     Returns
     -------
-    List with probabilities: [probability of firstborn being female, probability of firstborn being male]
+    List with probabilities: [probability of firstborn being male, probability of firstborn being female]
 
     """
     man_count = 0
@@ -366,8 +360,13 @@ def firstborn_gender_likelyhood(people_dict):
             if oldest_child[-1] == "man":
                 man_count += 1
 
-    print("The probability ofthe firstborn being a male is:", (man_count / children_count) * 100)
-    print("The probability ofthe firstborn being a female is:", (woman_count / children_count) * 100)
+    #The probability of the firstborn being a male:
+    man_prob = (man_count / children_count) * 100
+
+    #The probability of the firstborn being a female
+    woman_prob = (woman_count / children_count) * 100
+    
+    return [man_prob, woman_prob]
 
 
 
@@ -492,7 +491,7 @@ def bmi_marriage(people_dict):
     #convert height and weight to integers, calculate BMI and add to BMI dict
     for key, value in people_dict.items():
         people_dict[key][2] = int(value[2])
-        peopledict[key][3] = int(value[3])
+        people_dict[key][3] = int(value[3])
 
         BMI_dict[key] = [people_dict[people_dict[key][7]], ]
 
