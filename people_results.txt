@@ -1,0 +1,72 @@
+Age distribution
+
+Age	Count
+0-9	78
+10-19	52
+20-29	71
+30-39	78
+40-49	42
+50-59	72
+60-69	32
+70-79	31
+80-89	39
+90-99	5
+100+	0
+______________________________________________________________________________
+Gender distribution
+
+Gender	Count
+woman	257
+man	243
+______________________________________________________________________________
+______________________________________________________________________________
+Age distribution of first time fathers
+
+Age	Count
+0-9	0
+10-19	7
+20-29	108
+30-39	3
+40-49	0
+50-59	0
+60-69	0
+70-79	0
+80-89	0
+90-99	0
+100+	0
+______________________________________________________________________________
+______________________________________________________________________________
+Age distribution of first time mothers
+
+Age	Count
+0-9	0
+10-19	17
+20-29	98
+30-39	3
+40-49	0
+50-59	0
+60-69	0
+70-79	0
+80-89	0
+90-99	0
+100+	0
+______________________________________________________________________________
+Distribution of men and women without children
+
+Gender	Percentage
+woman 	 54.09 %
+man 	 51.44 %
+all 	 52.80 %
+______________________________________________________________________________
+Average age difference between parents with a common child
+
+The average age difference of parents with a common child is:  1.21
+______________________________________________________________________________
+People with at least one grandparent alive
+
+People with grandparents alive:		231
+Percentage of the total population:	46.2%
+______________________________________________________________________________
+Average number of cousins for people with cousins
+
+The average number of cousins for people with cousins is: 3.80

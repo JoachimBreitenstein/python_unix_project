@@ -87,6 +87,7 @@ for line in infile:
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, CPR, None, None, None]
                 if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR, None, None]
+infile.close()
 
 #Distribution of first time parents
 age_dict = first_time_parent(people_dict, "man")
@@ -107,3 +108,75 @@ print("The average age difference between parents is:", mean_age_diff)
 #How many men and women have children with more than one partner? 
 grandparent_dict = grandparent(people_dict)
 print(grandchildDonate(grandparent_dict, people_dict))
+
+#_______________________________________________________________________________________________________________________
+outfile = open("people_results.txt", 'w')
+
+taskbreak = "______________________________________________________________________________"
+
+# 1. Age and gender distribution
+# Age
+age_dist = age_distribution(people_dict)
+print("Age distribution\n", file=outfile)
+print("Age\tCount", file=outfile)
+for key in age_dist.keys():
+    print(key, age_dist[key], sep="\t", file=outfile)
+print(taskbreak, file=outfile)
+
+#Gender
+gender_dist = gender_distribution(people_dict)
+print("Gender distribution\n", file=outfile)
+print("Gender\tCount", file=outfile)
+for key in gender_dist.keys():
+    print(key, gender_dist[key], sep="\t", file=outfile)
+print(taskbreak, file=outfile)
+
+# 2. min, max, avg of first time fathers
+firstTimeFather = first_time_parent(people_dict, "man")
+print(taskbreak, file=outfile)
+
+# 3. Age distribution of first time fathers
+print("Age distribution of first time fathers\n", file=outfile)
+print("Age\tCount", file=outfile)
+for key in firstTimeFather.keys():
+    print(key, firstTimeFather[key], sep="\t", file=outfile)
+print(taskbreak, file=outfile)
+
+# 4. min, max, avg of first time mothers
+firstTimeMother = first_time_parent(people_dict, "woman")
+print(taskbreak, file=outfile)
+
+# 5. Age distribution of first time mothers
+print("Age distribution of first time mothers\n", file=outfile)
+print("Age\tCount", file=outfile)
+for key in firstTimeMother.keys():
+    print(key, firstTimeMother[key], sep="\t", file=outfile)
+print(taskbreak, file=outfile)
+
+# 6. Percentage of men and woman without children
+childless = childless_distribution(people_dict)
+print("Distribution of men and women without children\n", file=outfile)
+print("Gender\tPercentage", file=outfile)
+for key in childless.keys():
+    print(key,"\t", "{:0.2f}".format(childless[key]),"%" , file=outfile)
+print(taskbreak, file=outfile)
+
+# 7. Average age difference between parents
+print("Average age difference between parents with a common child\n", file=outfile)
+print("The average age difference of parents with a common child is: ", "{:0.2f}".format(avg_age_diff(people_dict)), file=outfile)
+print(taskbreak, file=outfile)
+
+# 8. People with at least one grandparent alive
+grandparent_dict = grandparent(people_dict)
+grandparentAlive = grandparent_alive(grandparent_dict, people_dict)
+print("People with at least one grandparent alive\n", file=outfile)
+print("People with grandparents alive:", grandparentAlive[0], sep="\t\t", file=outfile )
+print("Percentage of the total population:","\t", grandparentAlive[1], "%", sep="", file=outfile)
+print(taskbreak, file=outfile)
+
+# 9. Average number of cousins
+cousin = cousins(grandparent_dict, people_dict)
+print("Average number of cousins for people with cousins\n", file=outfile)
+print("The average number of cousins for people with cousins is:", "{:0.2f}".format(cousin), file=outfile)
+
+# 10. Men and women with children with different partners
