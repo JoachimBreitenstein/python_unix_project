@@ -87,6 +87,22 @@ def gender_distribution(people_dict):
 
 def first_time_parent(people_dict, gender):
 
+    """
+    Function that takes people_dict and gender string (either "man" or "woman") and calculates the average age for 
+    first time parents and min age, max age and average age for first time parents. 
+
+    Parameters
+    ----------
+    people_dict: dict
+        CPR numbers are keys, each with a list of values describing information about each key.
+        
+    Returns
+    -------
+        - Age dict with parents CPR and count of ages when they became parents for the first time (shown in interval counts)
+        - Age of youngest first time parent
+        - Age of oldest first time parent
+        - Average age of first time parents 
+    """
     age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, 
                 "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
     min_age = 100 #theoretically should be set to max age
@@ -316,7 +332,7 @@ def cousins(grandparent_dict, people_dict):
     return average_cousins
 
 def firstborn_gender_likelyhood(people_dict):
-     """
+    """
     Function which takes people_dict and returns a list with the probability of the firstborn being male or female, respectively.
 
     Parameters
@@ -331,25 +347,163 @@ def firstborn_gender_likelyhood(people_dict):
     """    
     man_count = 0
     woman_count = 0
-    man_count = 0
     children_count = 0
-
+    
     for key in people_dict.keys(): 
         if people_dict[key][6] is not None:
-        children_count += 1         
+            children_count += 1         
         
-        #construct new dict for children with age and gender
-        children_dict = {}
+            #construct new dict for children with age and gende
+            children_dict = {}
+            
+            for i in people_dict[key][6]: 
+                children_dict[i] = [people_dict[i][9], people_dict[i][10]]
         
-        for i in people_dict[key][6]: 
-            children_dict[i] = [people_dict[i][10], people_dict[i][11]]
+            oldest_child = children_dict[max(children_dict, key = children_dict.get)]
         
-        oldest_child = children_dict[max(children_dict, key = children_dict.get)]
+            if oldest_child[-1] == "woman": 
+                woman_count += 1
+            if oldest_child[-1] == "man": 
+                man_count += 1
         
-        if people_dict[oldest_child][11] == "woman": 
-            woman_count += 1
-        if people_dict[oldest_child][11] == "man": 
-            man_count += 1
+    print("The probability ofthe firstborn being a male is:", (man_count / children_count) * 100)
+    print("The probability ofthe firstborn being a female is:", (woman_count / children_count) * 100)
 
 
-    return [woman_count / children_count, man_count / children_count] * 100
+
+def multiple_partner(people_dict):
+    man_count = 0 
+    woman_count = 0
+    parents_dict = {} #construct dict with parents
+
+    #calculate if two different children have the same mother but different father
+    for key in people_dict.keys(): 
+        if people_dict[key][7] and people_dict[key][8] is not None: #make sure that father and mother is present
+            if people_dict[key][7] in parents_dict.keys():
+                parents_dict[people_dict[key][7]].extend(people_dict[key][8])
+            else:   
+                parents_dict[people_dict[key][7]] = [people_dict[key][8]] #mother is key and father is value
+    
+    return "this function has a bug"
+
+
+def tall_marriage(people_dict): 
+    """
+    Function that calculates percentages of different marriages by height combinations of couples.
+
+    Parameters
+    ---------
+    people_dict : dict
+          CPR numbers as keys
+
+    Returns
+    -------
+    List with percantages of couples height combinations. 
+        
+    """
+    
+    #set constraints for tall, normal and short in women and men: 
+    #men: 
+        #tall: > 185cm
+        #normal: 175 > and < 185cm
+        #short: < 175cm
+    #women: 
+        #tall: >= 175cm
+        #normal: 165 >= and < 175cm
+        #short: < 165cm
+    #assumption: people that have a common child, have gotten that child while in a relationsship (marriage)
+    #extracting height of mother and father 
+    
+    #height bins: 
+    tall_tall = 0
+    normal_normal = 0
+    short_short = 0
+    tall_short = 0
+    normal_short = 0
+    tall_normal = 0 
+    total = 0 
+    
+    for key, value in people_dict.items(): 
+        people_dict[key][2] = int(value[2])
+    
+    for key in people_dict.keys(): 
+        if people_dict[key][7] and people_dict[key][8] is not None:
+            total += 1
+        
+            
+            #tall/tall  
+            if people_dict[people_dict[key][7]][2] >= 175 and people_dict[people_dict[key][8]][2] >= 185: 
+                tall_tall += 1
+                
+            #normal/normal
+            elif (people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2]) >= 175: 
+                normal_normal += 1
+                
+            #short/short
+            elif people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2] < 175: 
+                short_short += 1
+                
+            #tall/short & short/tall
+            elif (people_dict[people_dict[key][7]][2] >= 175 and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2]) >= 185: 
+                tall_short += 1
+            
+            #tall/normal & normal/tall 
+            elif (people_dict[people_dict[key][7]][2] >= 175 and (people_dict[people_dict[key][8]][2] >= 175 and people_dict[people_dict[key][8]][2] < 185)) or ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] <= 185):
+                tall_normal += 1
+            
+            #normal/short & short/normal
+            elif ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2] >= 175)): 
+                normal_short += 1
+            
+            
+    print("Percentage of tall/tall couples:", tall_tall / total * 100)
+    print("Percentage of normal/normal couples:", normal_normal / total * 100)
+    print("Percentage of short/short couples:", short_short / total * 100)
+    print("Percentage of tall/normal couples:", tall_normal / total * 100)
+    print("Percentage of tall/short couples:", tall_short / total * 100)
+    print("Percentage of normal/short couples:", normal_short / total * 100) 
+
+def tall_children(people_dict): 
+    
+    
+    return "Hello World"
+
+
+def bmi_marriage(people_dict):
+    
+    
+    
+    #BMI bins: 
+    # < 18.5 = slim 
+    # >= 18.5 and < 25 = normal
+    # > 25 = fat
+    
+    #calc BMI: weight / (height/10)^2 (height needs to be in meters)
+    
+    fat_fat = 0
+    normal_normal = 0
+    slim_slim = 0
+    fat_normal = 0
+    fat_slim = 0
+    normal_slim = 0
+    
+    #dict with children as key and parents BMI as values
+    BMI_dict = {}
+    
+    #convert height and weight to integers, calculate BMI and add to BMI dict
+    for key, value in people_dict.items(): 
+        people_dict[key][2] = int(value[2])
+        peopledict[key][3] = int(value[3])
+        
+        BMI_dict[key] = [people_dict[people_dict[key][7]], ]
+        
+    
+    for key in BMI_dict.keys():
+        
+        if BMI_dict[key] > 25: 
+            
+
+
+    
+    
+    
