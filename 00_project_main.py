@@ -2,6 +2,7 @@
 
 import re
 import sys
+import math
 from func_file import *
 
 if len(sys.argv) == 1:
@@ -185,3 +186,4 @@ print(taskbreak, file=outfile)
 print("The likehood of the firstborn's gender")
 
 # 11. Men and women with children with different partners
+print(bmi_marriage(people_dict))

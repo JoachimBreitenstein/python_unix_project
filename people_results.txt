@@ -70,3 +70,4 @@ ______________________________________________________________________________
 Average number of cousins for people with cousins
 
 The average number of cousins for people with cousins is: 3.80
+______________________________________________________________________________

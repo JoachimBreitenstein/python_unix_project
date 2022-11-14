@@ -390,8 +390,18 @@ def multiple_partner(people_dict):
 def tall_marriage(people_dict):
     """
     Function that calculates percentages of different marriages by height combinations of couples.
-    return [woman_count / children_count, man_count / children_count] * 100
-
+    Assumptoin: every couple that has at least one child have been/are married. 
+    
+    Constraints for tall, normal and short in women and men:
+    men:
+        tall: > 185cm
+        normal: 175 > and < 185cm
+        short: < 175cm
+    women:
+        tall: >= 175cm
+        normal: 165 >= and < 175cm
+        short: < 165cm
+        
     Parameters
     ---------
     people_dict : dict
@@ -402,20 +412,8 @@ def tall_marriage(people_dict):
     List with percantages of couples height combinations.
 
     """
-
-    #set constraints for tall, normal and short in women and men:
-    #men:
-        #tall: > 185cm
-        #normal: 175 > and < 185cm
-        #short: < 175cm
-    #women:
-        #tall: >= 175cm
-        #normal: 165 >= and < 175cm
-        #short: < 165cm
-    #assumption: people that have a common child, have gotten that child while in a relationsship (marriage)
-    #extracting height of mother and father
-
-    #height bins:
+    
+    #initialization
     tall_tall = 0
     normal_normal = 0
     short_short = 0
@@ -424,9 +422,11 @@ def tall_marriage(people_dict):
     tall_normal = 0
     total = 0
 
+    #convert height values to integers
     for key, value in people_dict.items():
         people_dict[key][2] = int(value[2])
 
+    #count height combinations 
     for key in people_dict.keys():
         if people_dict[key][7] and people_dict[key][8] is not None:
             total += 1
@@ -457,12 +457,14 @@ def tall_marriage(people_dict):
                 normal_short += 1
 
 
-    print("Percentage of tall/tall couples:", tall_tall / total * 100)
-    print("Percentage of normal/normal couples:", normal_normal / total * 100)
-    print("Percentage of short/short couples:", short_short / total * 100)
-    print("Percentage of tall/normal couples:", tall_normal / total * 100)
-    print("Percentage of tall/short couples:", tall_short / total * 100)
-    print("Percentage of normal/short couples:", normal_short / total * 100)
+    result_dict = {"tall/tall" : tall_tall / total * 100, 
+                   "normal/normal" : normal_normal / total * 100, 
+                   "short/short" : short_short / total * 100, 
+                   "tall/normal" : tall_normal / total * 100, 
+                   "tall/short" : tall_short / total * 100, 
+                   "normal/short" : normal_short / total * 100}
+    
+    return result_dict
 
 def tall_children(people_dict):
 
@@ -471,14 +473,27 @@ def tall_children(people_dict):
 
 
 def bmi_marriage(people_dict):
+    """
+    Function that calculates the percentages of couples based on BMI combinations; fat/fat, normal/normal, slim/slim, fat/slim, fat/normal & normal/slim. 
 
-    #BMI bins:
-    # < 18.5 = slim
-    # >= 18.5 and < 25 = normal
-    # > 25 = fat
+    BMI intepretations:
+    Slim: < 18.5 = slim
+    Normal: >= 18.5 and < 25 = normal
+    Fat: > 25 = fat
 
-    #calc BMI: weight / (height/10)^2 (height needs to be in meters)
+    BMI calculation: weight / (height/10)^2 (height needs to be in meters)
 
+    Parameters
+    ---------
+    people_dict : dict
+          CPR numbers as keys
+
+    Returns:
+        BMI_dict : dict
+            children as keys and their respective parents' BMI as values.
+    """
+    
+    #initialization
     fat_fat = 0
     normal_normal = 0
     slim_slim = 0
@@ -486,21 +501,40 @@ def bmi_marriage(people_dict):
     fat_slim = 0
     normal_slim = 0
 
-    #dict with children as key and parents BMI as values
+    #dict with children as key and parents' BMI as values ([mother BMI, father BMI])
     BMI_dict = {}
 
     #convert height and weight to integers, calculate BMI and add to BMI dict
     for key, value in people_dict.items():
-        people_dict[key][2] = int(value[2])
-        peopledict[key][3] = int(value[3])
+        if people_dict[key][7] and people_dict[key][8] is not None:
+            BMI_dict[key] = [int(people_dict[people_dict[key][7]][3]) / float((int(people_dict[people_dict[key][7]][2]) / 100)**2), 
+                            int(people_dict[people_dict[key][8]][3]) / float((int(people_dict[people_dict[key][8]][2]) / 100)**2)]
+            
 
-        BMI_dict[key] = [people_dict[people_dict[key][7]], ]
-
-
-    for key in BMI_dict.keys():
-        
-        if BMI_dict[key] > 25:
-            pass
+    #counts couples based on BMI combination:
+    for key, value in BMI_dict.items():
+        if value[0] > 25 and value[1] > 25:
+            fat_fat += 1
+        elif value[0] < 18.5 and value[1] < 18.5:
+            slim_slim += 1
+        elif (value[0] < 25 and value[0] >= 18.5) and (value[1] < 25 and value[1] >= 18.5):
+            normal_normal += 1
+        elif (value[0] > 25 and (value[1] < 25 and value[1] >= 18.5)) or (value[1] > 25 and (value[0] < 25 and value[0] >= 18.5)): 
+            fat_normal += 1
+        elif (value[0] > 25 and value[1] < 18.5) or (value[1] > 25 and value[0] < 18.5): 
+            fat_slim += 1
+        elif (value[0] < 18.5 and (value[1] < 25 and value[1] >= 18.5)) or (value[1] < 18.5 and (value[0] < 25 and value[0] >= 18.5)):
+            normal_slim += 1
+    
+    #contructs final dict w. every bmi combination (combinaiton as key, count as values)
+    result_dict = {"fat/fat" : fat_fat / len(BMI_dict) * 100, 
+                   "slim/slim" : slim_slim / len(BMI_dict) * 100, 
+                   "normal/normal" : normal_normal / len(BMI_dict) * 100, 
+                   "fat/slim" : fat_slim / len(BMI_dict) * 100, 
+                   "fat/normal" : fat_normal / len(BMI_dict) * 100, 
+                   "normal/slim" : normal_slim / len(BMI_dict) * 100}
+    
+    return result_dict
 
 
 # Function for exercise 15
