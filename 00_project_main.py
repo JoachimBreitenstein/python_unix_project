@@ -103,9 +103,9 @@ print("The average age difference between parents is:", mean_age_diff)
 
 
 #is the firstborn likely to be male of female
+#print(people_dict)
 
-
-#How many men and women have children with more than one partner? 
+#How many men and women have children with more than one partner?
 grandparent_dict = grandparent(people_dict)
 print(grandchildDonate(grandparent_dict, people_dict))
 
