@@ -472,8 +472,6 @@ def tall_children(people_dict):
 
 def bmi_marriage(people_dict):
 
-
-
     #BMI bins:
     # < 18.5 = slim
     # >= 18.5 and < 25 = normal
@@ -500,9 +498,8 @@ def bmi_marriage(people_dict):
 
 
     for key in BMI_dict.keys():
-
+        
         if BMI_dict[key] > 25:
-
 
 
 
