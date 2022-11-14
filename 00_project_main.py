@@ -89,26 +89,6 @@ for line in infile:
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, None, CPR, None, None]
 infile.close()
 
-#Distribution of first time parents
-age_dict = first_time_parent(people_dict, "man")
-for key in age_dict:
-    print(key, ":", age_dict[key])
-
-
-#what is the average age difference betweeen the parents
-mean_age_diff = avg_age_diff(people_dict)
-print("The average age difference between parents is:", mean_age_diff)
-
-#what is the average number of cousins
-
-
-#is the firstborn likely to be male of female
-#print(people_dict)
-
-#How many men and women have children with more than one partner?
-grandparent_dict = grandparent(people_dict)
-print(grandchildDonate(grandparent_dict, people_dict))
-
 #_______________________________________________________________________________________________________________________
 outfile = open("people_results.txt", 'w')
 
@@ -229,7 +209,7 @@ for element in father_donate:
 
 print("Fathers there can donate blood to their sons\n", file=outfile)
 print("Number of fathers there can donate blood:", len(father_donate), sep="\t", file=outfile)
-print("Number of sons there can receive blood:", count_son_receive, sep="\t", file=outfile)
+print("Number of sons there can receive blood:", count_son_receive, sep="\t\t", file=outfile)
 print(taskbreak, file=outfile)
 
 # 17. Grandchildren there can donate blood to a grandparent
