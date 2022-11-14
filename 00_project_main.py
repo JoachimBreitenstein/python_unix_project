@@ -178,5 +178,10 @@ print(taskbreak, file=outfile)
 cousin = cousins(grandparent_dict, people_dict)
 print("Average number of cousins for people with cousins\n", file=outfile)
 print("The average number of cousins for people with cousins is:", "{:0.2f}".format(cousin), file=outfile)
+print(taskbreak, file=outfile)
 
-# 10. Men and women with children with different partners
+# 10. Firstborn's gender
+
+print("The likehood of the firstborn's gender")
+
+# 11. Men and women with children with different partners

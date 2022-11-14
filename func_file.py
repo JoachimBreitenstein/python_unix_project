@@ -500,11 +500,17 @@ def bmi_marriage(people_dict):
     for key in BMI_dict.keys():
         
         if BMI_dict[key] > 25:
+            pass
 
 
+# Function for exercise 15
+def notRealParent(people_dict):
+    """
+    Function which takes people_dict and returns a list with the children with at least one non-biological parent
 
-
-
+    Parameters
+    ---------
+    people_dict : dict
           CPR numbers as keys. Mother in position [7], father in position[8], Blood type in position [5]
 
     Returns
