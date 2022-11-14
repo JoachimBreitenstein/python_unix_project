@@ -364,7 +364,7 @@ def notRealParent(people_dict):
     Parameters
     ---------
     people_dict : dict
-          CPR numbers as keys
+          CPR numbers as keys. Mother in position [7], father in position[8], Blood type in position [5]
 
     Returns
     -------
@@ -391,18 +391,38 @@ def notRealParent(people_dict):
 
 
 # fatherDonatefor exercise 16
-def fatherDonate(people_dict):
+def fatherSonDonate(people_dict):
     """
-    
+    Function which takes people_dict as input and returns a list with fathers who can donate blood to their sons
+
+    Parameters
+    ------------
+    people_dict: dict
+    dict with cpr as keys, children in position[6], blood type in position[5], gender in position[10]
+
+    Return
+    --------
+    father_donate: List
+    List with a list of father(Who can donate), sons(Who can receive), and their bloodtype: [father, [children], [blood types]] 
     """
-    donated = False
-    count_sons = 0
+    father_donate = list()
+    son_receive = list()
     for key in people_dict.keys():
-        if people_dict[key][10] == "man" and people_dict[key][6] is not None:
-            fatherblood = people_dict[key][5]
+        son_receive = list()
+        father_blood = people_dict[key][5]
+        bloodtype = [father_blood]
+        if people_dict[key][6] is None:
+            continue
+        else:
             for child in people_dict[key][6]:
-                if people_dict[child][10] == "man":
-                    if people_dict[child][5][-1] == "-" or (people_dict[child][5][-1] == "+" and fatherblood[-1] == "+"):
-                        if fatherblood[:-1] == "O" or people_dict[child][5][:-1] == "AB":
-                            donated = True
-                            count_sons += 1
+                if people_dict[child][10] == "woman":
+                    continue
+                else:
+                    child_blood = people_dict[child][5]
+                    if father_blood[-1] == "-" or child_blood[-1] == "+":
+                        if (father_blood[:-1] == "O" or child_blood[:-1] == "AB") or (father_blood[:-1] == "A" and child_blood[:-1] == "A") or (father_blood[:-1] == "B" and child_blood[:-1] == "B"):
+                            son_receive.append(child)
+                            bloodtype.append(child_blood)
+        if son_receive != []:
+            father_donate.append([key,son_receive,bloodtype])
+    return father_donate

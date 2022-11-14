@@ -125,10 +125,7 @@ def childless_distribution(people_dict):
     childless_dict["all"] = childless_dict["all"]/count_all* 100
     return childless_dict
 
-<<<<<<< HEAD
 
-
-=======
 # Function for exercise 8, 9, 17
 def grandparent(people_dict):
     """
@@ -247,4 +244,28 @@ def notRealParent(people_dict):
 
     return bastard 
 
+# Function for exercise 16
 
+def fatherSonDonate(people_dict):
+    
+    father_donate = list()
+    son_receive = list()
+    for key in people_dict.keys():
+        son_receive = list()
+        father_blood = people_dict[key][5]
+        bloodtype = [father_blood]
+        if people_dict[key][6] is None:
+            continue
+        else:
+            for child in people_dict[key][6]:
+                if people_dict[child][10] == "woman":
+                    continue
+                else:
+                    child_blood = people_dict[child][5]
+                    if father_blood[-1] == "-" or child_blood[-1] == "+":
+                        if (father_blood[:-1] == "O" or child_blood[:-1] == "AB") or (father_blood[:-1] == "A" and child_blood[:-1] == "A") or (father_blood[:-1] == "B" and child_blood[:-1] == "B"):
+                            son_receive.append(child)
+                            bloodtype.append(child_blood)
+        if son_receive != []:
+            father_donate.append([key,son_receive,bloodtype])
+    return father_donate
