@@ -426,3 +426,37 @@ def fatherSonDonate(people_dict):
         if son_receive != []:
             father_donate.append([key,son_receive,bloodtype])
     return father_donate
+
+# Function for exercise 17:
+def grandchildDonate(grandparent_dict, people_dict):
+    """
+    Function which takes two dicts, one with grandparents as keys and grandchildren as values and people_dict
+    It returns a list of grandparent there can receive blood, grandchildren there can donate blood and their blood type.
+
+    Parameters
+    -----------
+    grandparent_dict: dict
+    dict with grandparents cpr as keys and their grandchildren in a list as values
+
+    people_dict: dict
+    dict with cpr as keys and bloodtype in position[5]
+
+    Returns
+    --------
+    receive_donate_blood: list
+    a list with grandparents(receivers), grandchildren(donaters) and bloodtypes: [grandparent, [grandchildren], [bloodtype]]
+    """
+    receive_donate_blood = list()
+    for key in grandparent_dict.keys():
+        grandchild_donate = list()
+        grandparent_blood = people_dict[key][5]
+        bloodtype = [grandparent_blood]
+        for child in grandparent_dict[key]:
+            child_blood = people_dict[child][5]
+            if child_blood[-1] == "-" or grandparent_blood[-1] == "+":
+                if (child_blood[:-1] == "O" or grandparent_blood[:-1] == "AB") or (child_blood[:-1] == "A" and grandparent_blood[:-1] == "A") or (child_blood[:-1] == "B" and grandparent_blood[:-1] == "B"):
+                    grandchild_donate.append(child)
+                    bloodtype.append(child_blood)
+        if grandchild_donate != []:
+            receive_donate_blood.append([key,grandchild_donate,bloodtype])
+    return receive_donate_blood

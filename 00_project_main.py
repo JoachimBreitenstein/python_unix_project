@@ -45,34 +45,43 @@ for line in infile:
             people_dict[CPR][9] = age
             people_dict[CPR][10] = gender
 
+    # Adding first name
     if line[0:10] == "First name":
         people_dict[CPR][0] = line[12:-1]
 
+    # Adding last name
     if line[:9] == "Last name":
         people_dict[CPR][1] = line[11:-1]
 
+    # Adding height
     if line[:6] == "Height":
         people_dict[CPR][2] = line[8:-1]
 
+    # Adding weight
     if line[:6] == "Weight":
         people_dict[CPR][3] = line[8:-1]
 
+    # Adding eye color
     if line[:9] == "Eye color":
         people_dict[CPR][4] = line[11:-1]
 
+    # Adding blood type
     if line[:10] == "Blood type":
         people_dict[CPR][5] = line[12:-1]
 
+    # Adding children, mother and father
     if line[:8] == "Children":
         people_dict[CPR][6] = re.findall(r'\d{6}\-\d{4}', line)
         for i in range(len(people_dict[CPR][6])):
 
+            # If child is in people_dict add the father or mother
             if people_dict[CPR][6][i] in people_dict.keys():
                 if people_dict[CPR][10] == "woman":
                     people_dict[people_dict[CPR][6][i]][7] = CPR
                 if people_dict[CPR][10] == "man":
                     people_dict[people_dict[CPR][6][i]][8] = CPR
 
+            # If child is not in people_dict, add key and mother or father
             else:
                 if people_dict[CPR][10] == "woman":
                     people_dict[people_dict[CPR][6][i]] = [None, None, None, None, None, None, None, CPR, None, None, None]
@@ -96,3 +105,5 @@ print("The average age difference between parents is:", mean_age_diff)
 
 
 #How many men and women have children with more than one partner? 
+grandparent_dict = grandparent(people_dict)
+print(grandchildDonate(grandparent_dict, people_dict))
