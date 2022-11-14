@@ -103,8 +103,8 @@ def first_time_parent(people_dict, gender):
         - Age of oldest first time parent
         - Average age of first time parents
     """
-    age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0,
-                "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
+    age_dict = {"15-19":0, "20-24":0, "25-29":0, "30-34":0, "35-39":0,
+                "40+":0, "Min":0, "Max":0, "Avg":0}
     min_age = 100 #theoretically should be set to max age
     max_age = 0
     age_sum = 0
@@ -127,29 +127,23 @@ def first_time_parent(people_dict, gender):
             if age <= min_age:
                 min_age = age
 
-            if age >= 10 and age < 20:
-                age_dict["10-19"] += 1
-            if age >= 20 and age < 30:
-                age_dict["20-29"] += 1
-            if age >= 30 and age < 40:
-                age_dict["30-39"] += 1
-            if age >= 40 and age < 50:
-                age_dict["40-49"] += 1
-            if age >= 50 and age < 60:
-                age_dict["50-59"] += 1
-            if age >= 60 and age < 70:
-                age_dict["60-69"] += 1
-            if age >= 70 and age < 80:
-                age_dict["70-79"] += 1
-            if age >= 80 and age < 90:
-                age_dict["80-89"] += 1
-            if age >= 90 and age < 100:
-                age_dict["90-99"] += 1
-            if age >= 100:
-                age_dict["100+"] += 1
+            if age >= 15 and age < 20:
+                age_dict["15-19"] += 1
+            if age >= 20 and age < 25:
+                age_dict["20-24"] += 1
+            if age >= 25 and age < 30:
+                age_dict["25-29"] += 1
+            if age >= 30 and age < 35:
+                age_dict["30-34"] += 1
+            if age >= 35 and age < 40:
+                age_dict["35-39"] += 1
+            if age >= 40:
+                age_dict["40+"] += 1
 
     avg_age = age_sum / gender_count
-
+    age_dict["Min"] = min_age
+    age_dict["Max"] = max_age
+    age_dict["Avg"] = avg_age
     if gender == "woman":
         print("The average age for first time mothers is:", avg_age)
         print("The minimum age for first time mothers is:", min_age)
@@ -342,7 +336,7 @@ def firstborn_gender_likelyhood(people_dict):
 
     Returns
     -------
-    List with probabilities: [probability of firstborn being female, probability of firstborn being male]
+    List with probabilities: [probability of firstborn being male, probability of firstborn being female]
 
     """
     man_count = 0
@@ -366,8 +360,13 @@ def firstborn_gender_likelyhood(people_dict):
             if oldest_child[-1] == "man":
                 man_count += 1
 
-    print("The probability ofthe firstborn being a male is:", (man_count / children_count) * 100)
-    print("The probability ofthe firstborn being a female is:", (woman_count / children_count) * 100)
+    #The probability of the firstborn being a male:
+    man_prob = (man_count / children_count) * 100
+
+    #The probability of the firstborn being a female
+    woman_prob = (woman_count / children_count) * 100
+
+    return [man_prob, woman_prob]
 
 
 
@@ -390,8 +389,8 @@ def multiple_partner(people_dict):
 def tall_marriage(people_dict):
     """
     Function that calculates percentages of different marriages by height combinations of couples.
-    Assumptoin: every couple that has at least one child have been/are married. 
-    
+    Assumptoin: every couple that has at least one child have been/are married.
+
     Constraints for tall, normal and short in women and men:
     men:
         tall: > 185cm
@@ -401,7 +400,7 @@ def tall_marriage(people_dict):
         tall: >= 175cm
         normal: 165 >= and < 175cm
         short: < 165cm
-        
+
     Parameters
     ---------
     people_dict : dict
@@ -412,7 +411,7 @@ def tall_marriage(people_dict):
     List with percantages of couples height combinations.
 
     """
-    
+
     #initialization
     tall_tall = 0
     normal_normal = 0
@@ -426,7 +425,7 @@ def tall_marriage(people_dict):
     for key, value in people_dict.items():
         people_dict[key][2] = int(value[2])
 
-    #count height combinations 
+    #count height combinations
     for key in people_dict.keys():
         if people_dict[key][7] and people_dict[key][8] is not None:
             total += 1
@@ -457,13 +456,13 @@ def tall_marriage(people_dict):
                 normal_short += 1
 
 
-    result_dict = {"tall/tall" : tall_tall / total * 100, 
-                   "normal/normal" : normal_normal / total * 100, 
-                   "short/short" : short_short / total * 100, 
-                   "tall/normal" : tall_normal / total * 100, 
-                   "tall/short" : tall_short / total * 100, 
+    result_dict = {"tall/tall" : tall_tall / total * 100,
+                   "normal/normal" : normal_normal / total * 100,
+                   "short/short" : short_short / total * 100,
+                   "tall/normal" : tall_normal / total * 100,
+                   "tall/short" : tall_short / total * 100,
                    "normal/short" : normal_short / total * 100}
-    
+
     return result_dict
 
 def tall_children(people_dict):
@@ -474,7 +473,7 @@ def tall_children(people_dict):
 
 def bmi_marriage(people_dict):
     """
-    Function that calculates the percentages of couples based on BMI combinations; fat/fat, normal/normal, slim/slim, fat/slim, fat/normal & normal/slim. 
+    Function that calculates the percentages of couples based on BMI combinations; fat/fat, normal/normal, slim/slim, fat/slim, fat/normal & normal/slim.
 
     BMI intepretations:
     Slim: < 18.5 = slim
@@ -492,7 +491,7 @@ def bmi_marriage(people_dict):
         BMI_dict : dict
             children as keys and their respective parents' BMI as values.
     """
-    
+
     #initialization
     fat_fat = 0
     normal_normal = 0
@@ -507,9 +506,9 @@ def bmi_marriage(people_dict):
     #convert height and weight to integers, calculate BMI and add to BMI dict
     for key, value in people_dict.items():
         if people_dict[key][7] and people_dict[key][8] is not None:
-            BMI_dict[key] = [int(people_dict[people_dict[key][7]][3]) / float((int(people_dict[people_dict[key][7]][2]) / 100)**2), 
+            BMI_dict[key] = [int(people_dict[people_dict[key][7]][3]) / float((int(people_dict[people_dict[key][7]][2]) / 100)**2),
                             int(people_dict[people_dict[key][8]][3]) / float((int(people_dict[people_dict[key][8]][2]) / 100)**2)]
-            
+
 
     #counts couples based on BMI combination:
     for key, value in BMI_dict.items():
@@ -519,21 +518,21 @@ def bmi_marriage(people_dict):
             slim_slim += 1
         elif (value[0] < 25 and value[0] >= 18.5) and (value[1] < 25 and value[1] >= 18.5):
             normal_normal += 1
-        elif (value[0] > 25 and (value[1] < 25 and value[1] >= 18.5)) or (value[1] > 25 and (value[0] < 25 and value[0] >= 18.5)): 
+        elif (value[0] > 25 and (value[1] < 25 and value[1] >= 18.5)) or (value[1] > 25 and (value[0] < 25 and value[0] >= 18.5)):
             fat_normal += 1
-        elif (value[0] > 25 and value[1] < 18.5) or (value[1] > 25 and value[0] < 18.5): 
+        elif (value[0] > 25 and value[1] < 18.5) or (value[1] > 25 and value[0] < 18.5):
             fat_slim += 1
         elif (value[0] < 18.5 and (value[1] < 25 and value[1] >= 18.5)) or (value[1] < 18.5 and (value[0] < 25 and value[0] >= 18.5)):
             normal_slim += 1
-    
+
     #contructs final dict w. every bmi combination (combinaiton as key, count as values)
-    result_dict = {"fat/fat" : fat_fat / len(BMI_dict) * 100, 
-                   "slim/slim" : slim_slim / len(BMI_dict) * 100, 
-                   "normal/normal" : normal_normal / len(BMI_dict) * 100, 
-                   "fat/slim" : fat_slim / len(BMI_dict) * 100, 
-                   "fat/normal" : fat_normal / len(BMI_dict) * 100, 
+    result_dict = {"fat/fat" : fat_fat / len(BMI_dict) * 100,
+                   "slim/slim" : slim_slim / len(BMI_dict) * 100,
+                   "normal/normal" : normal_normal / len(BMI_dict) * 100,
+                   "fat/slim" : fat_slim / len(BMI_dict) * 100,
+                   "fat/normal" : fat_normal / len(BMI_dict) * 100,
                    "normal/slim" : normal_slim / len(BMI_dict) * 100}
-    
+
     return result_dict
 
 

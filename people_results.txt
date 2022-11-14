@@ -19,37 +19,38 @@ Gender	Count
 woman	257
 man	243
 ______________________________________________________________________________
+Minimum, maximun and average age for first time fathers
+
+The average age for first time fathers is: 23.07
+The minimum age for first time fathers is: 17
+The maximum age for first time fathers is: 34
 ______________________________________________________________________________
 Age distribution of first time fathers
 
 Age	Count
-0-9	0
-10-19	7
-20-29	108
-30-39	3
-40-49	0
-50-59	0
-60-69	0
-70-79	0
-80-89	0
-90-99	0
-100+	0
+15-19	7
+20-24	73
+25-29	35
+30-34	3
+35-39	0
+40+	0
+______________________________________________________________________________
+Minimum, maximun and average age for first time mothers
+
+The average age for first time mothers is: 22.80
+The minimum age for first time mothers is: 16
+The maximum age for first time mothers is: 33
 ______________________________________________________________________________
 ______________________________________________________________________________
 Age distribution of first time mothers
 
 Age	Count
-0-9	0
-10-19	17
-20-29	98
-30-39	3
-40-49	0
-50-59	0
-60-69	0
-70-79	0
-80-89	0
-90-99	0
-100+	0
+15-19	17
+20-24	64
+25-29	34
+30-34	3
+35-39	0
+40+	0
 ______________________________________________________________________________
 Distribution of men and women without children
 
@@ -65,9 +66,31 @@ ______________________________________________________________________________
 People with at least one grandparent alive
 
 People with grandparents alive:		231
-Percentage of the total population:	46.2%
+Percentage of the total population:	46.2 %
 ______________________________________________________________________________
 Average number of cousins for people with cousins
 
 The average number of cousins for people with cousins is: 3.80
+______________________________________________________________________________
+The likehood of the firstborn's gender
+
+Male:	39.83 %
+Female:	60.17 %
+______________________________________________________________________________
+Men and Women with children with different partners
+
+______________________________________________________________________________
+Children with a not real parent according to their blood type
+
+No one can safely be said to have a not real parent
+______________________________________________________________________________
+Fathers there can donate blood to their sons
+
+Number of fathers there can donate blood:	92
+Number of sons there can receive blood:	122
+______________________________________________________________________________
+Grandchildren there can donate blood to a grandparent
+
+Number of grandparents there can receive blood:	81
+Number of grandchildren there can donate blood:	271
 ______________________________________________________________________________
