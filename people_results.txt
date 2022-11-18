@@ -89,7 +89,7 @@ ______________________________________________________________________________
 Fathers there can donate blood to their sons
 
 Number of fathers there can donate blood:	92
-Number of sons there can receive blood:	122
+Number of sons there can receive blood:		122
 ______________________________________________________________________________
 Grandchildren there can donate blood to a grandparent
 
