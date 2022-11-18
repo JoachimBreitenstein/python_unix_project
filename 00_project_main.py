@@ -243,3 +243,8 @@ print("Grandchildren there can donate blood to a grandparent\n", file=outfile)
 print("Number of grandparents there can receive blood:", len(grandchild_donate), sep="\t", file=outfile)
 print("Number of grandchildren there can donate blood:", count_grandchild_donate, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
+
+
+test = {"a" : 0}
+if "a" in test: 
+    print("True")

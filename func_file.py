@@ -144,6 +144,7 @@ def first_time_parent(people_dict, gender):
     age_dict["Min"] = min_age
     age_dict["Max"] = max_age
     age_dict["Avg"] = avg_age
+    
     if gender == "woman":
         print("The average age for first time mothers is:", avg_age)
         print("The minimum age for first time mothers is:", min_age)
@@ -371,19 +372,38 @@ def firstborn_gender_likelyhood(people_dict):
 
 
 def multiple_partner(people_dict):
+    """_summary_
+
+    Args:
+        people_dict (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     man_count = 0
     woman_count = 0
-    parents_dict = {} #construct dict with parents
+    parents_dict_female = {} #construct dict with parents
+    parents_dict_male = {}
 
     #calculate if two different children have the same mother but different father
     for key in people_dict.keys():
         if people_dict[key][7] and people_dict[key][8] is not None: #make sure that father and mother is present
-            if people_dict[key][7] in parents_dict.keys():
-                parents_dict[people_dict[key][7]].extend(people_dict[key][8])
-            else:
-                parents_dict[people_dict[key][7]] = [people_dict[key][8]] #mother is key and father is value
+            
+            if people_dict[key][7] in parents_dict_female: 
+                if parents_dict_female[people_dict[key][7]] != people_dict[key][8]:
+                    woman_count += 1
+    
+            if people_dict[key][7] not in parents_dict_female: 
+                parents_dict_female[people_dict[key][7]] = people_dict[key][8]
 
-    return "this function has a bug"
+            if people_dict[key][8] in parents_dict_male: 
+                if parents_dict_male[people_dict[key][8]] != people_dict[key][7]:
+                    man_count += 1
+    
+            if people_dict[key][8] not in parents_dict_male: 
+                parents_dict_male[people_dict[key][8]] = people_dict[key][7]
+
+    return [woman_count, man_count]
 
 
 def tall_marriage(people_dict):
@@ -421,38 +441,105 @@ def tall_marriage(people_dict):
     tall_normal = 0
     total = 0
 
+    height_dict_male = {"Tall" : 0, "Normal" : 0, "Short": 0}
+    height_dict_female = {"Tall" : 0, "Normal" : 0, "Short" : 0}
+    
+    tall_male = []
+    tall_female = []
+    normal_male = []
+    normal_female = []
+    
     #convert height values to integers
     for key, value in people_dict.items():
         people_dict[key][2] = int(value[2])
-
+        
     #count height combinations
     for key in people_dict.keys():
         if people_dict[key][7] and people_dict[key][8] is not None:
             total += 1
 
-
             #tall/tall
             if people_dict[people_dict[key][7]][2] >= 175 and people_dict[people_dict[key][8]][2] >= 185:
                 tall_tall += 1
-
+                
+                #extract height of child 
+                if people_dict[key][10] == "man":
+                    if people_dict[key][2] >= 185: 
+                        height_dict_male["Tall"] += 1
+                    if people_dict[key][2] < 185 and people_dict[key][2] >= 175: 
+                        height_dict_male["Normal"] += 1
+                    if people_dict[key][2] < 175: 
+                        height_dict_male["Short"] += 1
+                    
+                    tall_male.append(people_dict[key][2])
+                    
+                if people_dict[key][10] == "woman":
+                    if people_dict[key][2] >= 175: 
+                        height_dict_female["Tall"] += 1
+                    if people_dict[key][2] < 175 and people_dict[key][2] >= 165: 
+                        height_dict_female["Normal"] += 1
+                    if people_dict[key][2] < 165: 
+                        height_dict_female["Short"] += 1     
+                    
+                    tall_female.append(people_dict[key][2])  
+                    
             #normal/normal
-            elif (people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2]) >= 175:
+            if (people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2]) >= 175:
                 normal_normal += 1
-
+                
+                if people_dict[key][10] == "man":
+                    normal_male.append(people_dict[key][2])
+                
+                if people_dict[key][10] == "woman": 
+                    normal_female.append(people_dict[key][2])
+                
+                
             #short/short
-            elif people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2] < 175:
+            if people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2] < 175:
                 short_short += 1
 
             #tall/short & short/tall
-            elif (people_dict[people_dict[key][7]][2] >= 175 and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2]) >= 185:
+            if (people_dict[people_dict[key][7]][2] >= 175 and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and people_dict[people_dict[key][8]][2]) >= 185:
                 tall_short += 1
-
+            
+                if people_dict[key][10] == "man":
+                    if people_dict[key][2] >= 185: 
+                        height_dict_male["Tall"] += 1
+                    if people_dict[key][2] < 185 and people_dict[key][2] >= 175: 
+                        height_dict_male["Normal"] += 1
+                    if people_dict[key][2] < 175: 
+                        height_dict_male["Short"] += 1
+                    
+                if people_dict[key][10] == "woman":
+                    if people_dict[key][2] >= 175: 
+                        height_dict_female["Tall"] += 1
+                    if people_dict[key][2] < 175 and people_dict[key][2] >= 165: 
+                        height_dict_female["Normal"] += 1
+                    if people_dict[key][2] < 165:
+                        height_dict_female["Short"] += 1  
+                            
             #tall/normal & normal/tall
-            elif (people_dict[people_dict[key][7]][2] >= 175 and (people_dict[people_dict[key][8]][2] >= 175 and people_dict[people_dict[key][8]][2] < 185)) or ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] <= 185):
+            if (people_dict[people_dict[key][7]][2] >= 175 and (people_dict[people_dict[key][8]][2] >= 175 and people_dict[people_dict[key][8]][2] < 185)) or ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] <= 185):
                 tall_normal += 1
-
+                
+                if people_dict[key][10] == "man":
+                    if people_dict[key][2] >= 185: 
+                        height_dict_male["Tall"] += 1
+                    if people_dict[key][2] < 185 and people_dict[key][2] >= 175: 
+                        height_dict_male["Normal"] += 1
+                    if people_dict[key][2] < 175: 
+                        height_dict_male["Short"] += 1
+                    
+                if people_dict[key][10] == "woman":
+                    if people_dict[key][2] >= 175: 
+                        height_dict_female["Tall"] += 1
+                    if people_dict[key][2] < 175 and people_dict[key][2] >= 165: 
+                        height_dict_female["Normal"] += 1
+                    if people_dict[key][2] < 165: 
+                        height_dict_female["Short"] += 1  
+                            
             #normal/short & short/normal
-            elif ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2] >= 175)):
+            if ((people_dict[people_dict[key][7]][2] < 175 and people_dict[people_dict[key][7]][2] >= 165) and people_dict[people_dict[key][8]][2] < 175) or (people_dict[people_dict[key][7]][2] < 165 and (people_dict[people_dict[key][8]][2] < 185 and people_dict[people_dict[key][8]][2] >= 175)):
                 normal_short += 1
 
 
@@ -463,12 +550,23 @@ def tall_marriage(people_dict):
                    "tall/short" : tall_short / total * 100,
                    "normal/short" : normal_short / total * 100}
 
-    return result_dict
+    
+    return result_dict, height_dict_male, height_dict_female
 
 def tall_children(people_dict):
 
-
-    return "Hello World"
+    """"
+    calculate percentage of tall children with tall parents (tall/tall, tall/normal, tall/short)
+    
+    """
+    
+    #calculate median height for all height combinations --> compare height for the different groups
+    
+    #distribution of heights in the different bins: tall, normal, short for girl and boy 
+    
+    
+    
+    return height_dict_male, height_dict_female
 
 
 def bmi_marriage(people_dict):
