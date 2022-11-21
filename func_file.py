@@ -144,16 +144,6 @@ def first_time_parent(people_dict, gender):
     age_dict["Min"] = min_age
     age_dict["Max"] = max_age
     age_dict["Avg"] = avg_age
-    
-    if gender == "woman":
-        print("The average age for first time mothers is:", avg_age)
-        print("The minimum age for first time mothers is:", min_age)
-        print("The maximum age for first time mothers is:", max_age)
-
-    elif gender == "man":
-        print("The average age for first time fathers is:", avg_age)
-        print("The minimum age for first time fathers is:", min_age)
-        print("The maximum age for first time fathers is:", max_age)
 
     return age_dict
 
@@ -428,7 +418,7 @@ def tall_marriage(people_dict):
 
     Returns
     -------
-    List with percantages of couples height combinations.
+    Dict with percantages of couples height combinations.
 
     """
 

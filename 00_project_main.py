@@ -135,7 +135,7 @@ print("The average age for first time mothers is:", "{:0.2f}".format(firstTimeMo
 print("The minimum age for first time mothers is:", firstTimeMother["Min"], file=outfile)
 print("The maximum age for first time mothers is:", firstTimeMother["Max"], file=outfile)
 print(taskbreak, file=outfile)
-print(taskbreak, file=outfile)
+
 
 # 5. Age distribution of first time mothers
 print("Age distribution of first time mothers\n", file=outfile)
@@ -180,17 +180,37 @@ print("Female:", "\t", "{:0.2f}".format(prop_gender[1]), " %", sep="", file=outf
 print(taskbreak, file=outfile)
 
 # 11. Men and women with children with different partners
-
+more_partners = multiple_partner(people_dict)
 print("Men and Women with children with different partners\n", file=outfile)
+print("There are", more_partners[0], "women with children with different partners", file=outfile)
+print("There are", more_partners[1], "men with children with different partners", file=outfile)
 print(taskbreak, file=outfile)
 
 # 12. Do tall people marry
-
+tall_marriage_result = tall_marriage(people_dict)
 print("Percentage of couples based on their heights\n", file=outfile)
+print("Height\t\tPercent", file=outfile)
+for key, value in tall_marriage_result[0].items():
+    print(key, "\t", "{:0.2f}".format(value), " %", sep="", file=outfile)
+print(taskbreak, file=outfile)
 
 # 13. Do tall parents get tall children
+print("Do tall people get tall children?\n", file=outfile)
+print("Height of boys\tCount",file=outfile)
+for key, value in tall_marriage_result[1].items():
+    print(key, value, sep="\t\t", file=outfile)
+print("\nHeight of girls\tCount", file=outfile)
+for key, value in tall_marriage_result[2].items():
+    print(key, value, sep="\t\t", file=outfile)
+print(taskbreak, file=outfile)
 
 # 14. Do fat people marry
+bmi_marriage_result = bmi_marriage(people_dict)
+print("Do fat people get fat children?\n", file=outfile)
+print("Weight\t\tCount", file=outfile)
+for key, value in bmi_marriage_result.items():
+    print(key, "{:0.2f}".format(value), sep="\t", file=outfile)
+print(taskbreak, file=outfile)
 
 # 15. Does anyone have a not real parent according to bloodtype
 notrealparent_list = notRealParent(people_dict)
@@ -223,8 +243,3 @@ print("Grandchildren there can donate blood to a grandparent\n", file=outfile)
 print("Number of grandparents there can receive blood:", len(grandchild_donate), sep="\t", file=outfile)
 print("Number of grandchildren there can donate blood:", count_grandchild_donate, sep="\t", file=outfile)
 print(taskbreak, file=outfile)
-
-
-test = {"a" : 0}
-if "a" in test: 
-    print("True")

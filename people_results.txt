@@ -41,7 +41,6 @@ The average age for first time mothers is: 22.80
 The minimum age for first time mothers is: 16
 The maximum age for first time mothers is: 33
 ______________________________________________________________________________
-______________________________________________________________________________
 Age distribution of first time mothers
 
 Age	Count
@@ -79,9 +78,41 @@ Female:	60.17 %
 ______________________________________________________________________________
 Men and Women with children with different partners
 
+There are 0 women with children with different partners
+There are 0 men with children with different partners
 ______________________________________________________________________________
 Percentage of couples based on their heights
 
+Height		Percent
+tall/tall	27.54 %
+normal/normal	3.61 %
+short/short	3.93 %
+tall/normal	24.26 %
+tall/short	24.92 %
+normal/short	10.49 %
+______________________________________________________________________________
+Do tall people get tall children?
+
+Height of boys	Count
+Tall		54
+Normal		18
+Short		38
+
+Height of girls	Count
+Tall		93
+Normal		19
+Short		12
+______________________________________________________________________________
+Do fat people get fat children?
+
+Weight		Count
+fat/fat	16.72
+slim/slim	3.28
+normal/normal	12.79
+fat/slim	20.33
+fat/normal	35.74
+normal/slim	11.15
+______________________________________________________________________________
 Children with a not real parent according to their blood type
 
 No one can safely be said to have a not real parent
