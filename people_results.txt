@@ -91,7 +91,7 @@ tall/normal	24.26 %
 tall/short	24.92 %
 normal/short	10.49 %
 ______________________________________________________________________________
-Do tall people get tall children?
+Do tall people marry?
 
 Height of boys	Count
 Tall		54

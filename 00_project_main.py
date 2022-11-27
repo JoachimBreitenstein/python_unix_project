@@ -9,7 +9,7 @@ if len(sys.argv) == 1:
     try:
         infile = open(input("Please enter the filename: "), "r")
     except IOError as err:
-        print("Could not load file due to: ",str(err))
+        print("Could not load file due to: ", str(err))
         sys.exit(1)
 
 # If filename is given, open file
@@ -17,7 +17,7 @@ if len(sys.argv) == 2:
     try:
         infile = open(sys.argv[1], "r")
     except IOError as err:
-        print("Could not load file due to: ",str(err))
+        print("Could not load file due to: ", str(err))
         sys.exit(1)
 
 # People_dict is a dictionary with a person's CPR as key and the value is a list of:
@@ -195,7 +195,7 @@ for key, value in tall_marriage_result[0].items():
 print(taskbreak, file=outfile)
 
 # 13. Do tall parents get tall children
-print("Do tall people get tall children?\n", file=outfile)
+print("Do tall people marry?\n", file=outfile)
 print("Height of boys\tCount",file=outfile)
 for key, value in tall_marriage_result[1].items():
     print(key, value, sep="\t\t", file=outfile)
@@ -206,7 +206,7 @@ print(taskbreak, file=outfile)
 
 # 14. Do fat people marry
 bmi_marriage_result = bmi_marriage(people_dict)
-print("Do fat people get fat children?\n", file=outfile)
+print("Do fat people marry?\n", file=outfile)
 print("Weight\t\tCount", file=outfile)
 for key, value in bmi_marriage_result.items():
     print(key, "{:0.2f}".format(value), sep="\t", file=outfile)
