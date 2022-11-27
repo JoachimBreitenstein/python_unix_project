@@ -544,21 +544,6 @@ def tall_marriage(people_dict):
     
     return result_dict, height_dict_male, height_dict_female
 
-def tall_children(people_dict):
-
-    """"
-    calculate percentage of tall children with tall parents (tall/tall, tall/normal, tall/short)
-    
-    """
-    
-    #calculate median height for all height combinations --> compare height for the different groups
-    
-    #distribution of heights in the different bins: tall, normal, short for girl and boy 
-    
-    
-    
-    return height_dict_male, height_dict_female
-
 
 def bmi_marriage(people_dict):
     """
