@@ -218,8 +218,10 @@ print("Children with a not real parent according to their blood type\n", file=ou
 if notrealparent_list == []:
     print("No one can safely be said to have a not real parent", file=outfile)
 else:
+    print("CPR numbers", file=outfile)
     for child in notrealparent_list:
-        print("child",file=outfile)
+        print(child, file=outfile)
+    print("Total:", len(notrealparent_list), "children", file=outfile)
 print(taskbreak, file=outfile)
 
 # 16. Fathers there can donate blood to a son

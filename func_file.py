@@ -34,6 +34,7 @@ def age_distribution(people_dict):
         dict with age interval as keys and count as values
     """
     age_dict = {"0-9":0, "10-19":0, "20-29":0, "30-39":0, "40-49":0, "50-59":0, "60-69":0, "70-79":0, "80-89":0, "90-99":0, "100+":0 }
+    # Counting age distribution
     for keys in people_dict.keys():
         age = people_dict[keys][9]
         if age < 10:
@@ -78,10 +79,10 @@ def gender_distribution(people_dict):
     """
     gender_distribution = {"woman":0, "man":0}
     for keys in people_dict.keys():
-        if people_dict[keys][10] == "woman":
+        if people_dict[keys][10] == "woman":    # Counts number of women
             gender_distribution["woman"] += 1
 
-        if people_dict[keys][10] == "man":
+        if people_dict[keys][10] == "man":      # Counts number of men
             gender_distribution["man"] += 1
     return gender_distribution
 
@@ -111,22 +112,27 @@ def first_time_parent(people_dict, gender):
     gender_count = 0
 
     for key in people_dict.keys():
+        # Filtering for gender and people with kids
         if people_dict[key][10] == gender and people_dict[key][6] is not None:
 
             age_list = []
             gender_count += 1
 
+            # Makes list of childrens age
             for i in people_dict[key][6]:
                 age_list.append(people_dict[i][9])
 
+            # Calculates the age of the parent, when having their first child
             age = int(people_dict[key][9]) - int(max(age_list))
             age_sum += age
 
+            # Finds max and min age
             if age >= max_age:
                 max_age = age
             if age <= min_age:
                 min_age = age
 
+            # Makes distribution of age
             if age >= 15 and age < 20:
                 age_dict["15-19"] += 1
             if age >= 20 and age < 25:
@@ -140,6 +146,7 @@ def first_time_parent(people_dict, gender):
             if age >= 40:
                 age_dict["40+"] += 1
 
+    # Calculates the average age, and adds min, max and avg to age_dict
     avg_age = age_sum / gender_count
     age_dict["Min"] = min_age
     age_dict["Max"] = max_age
@@ -235,12 +242,16 @@ def grandparent(people_dict):
     grandparent_dict = dict()
 
     for keys in people_dict:
+        # If person has children
         if people_dict[keys][6] is not None:
             for kids in people_dict[keys][6]:
+                # If children has children
                 if people_dict[kids][6] is not None:
                     for element in people_dict[kids][6]:
+                        # Adds key to grandparent_dict with grandchildren as values
                         if keys not in grandparent_dict:
                             grandparent_dict[keys] = [element]
+                        # Adds grandchildren as values to the grandparent key
                         if keys in grandparent_dict:
                             grandparent_dict[keys].append(element)
 
@@ -303,16 +314,20 @@ def cousins(grandparent_dict, people_dict):
     cousins_list = []
     cousins_kid = 0
     for keys in grandparent_dict:
+        # If grandparent has over 1 grandchildren
         if len(grandparent_dict[keys]) > 1:
             for i in range(len(grandparent_dict[keys])):
+                # Add number of cousins to cousins_list
                 if cousins_kid != 0:
                     cousins_list.append(cousins_kid)
                     cousins_kid = 0
                 kid = grandparent_dict[keys][i]
                 for j in range(len(grandparent_dict[keys])):
+                    # If grandchildren has different parents, count cousins
                     if people_dict[kid][7] != people_dict[grandparent_dict[keys][j]][7] and people_dict[kid][8] != people_dict[grandparent_dict[keys][j]][8]:
                         cousins_kid += 1
 
+    # Calculates the average number of cousins
     average_cousins = sum(cousins_list)/len(cousins_list)
 
     return average_cousins
@@ -345,8 +360,10 @@ def firstborn_gender_likelyhood(people_dict):
             for i in people_dict[key][6]:
                 children_dict[i] = [people_dict[i][9], people_dict[i][10]]
 
+            # Finds the oldest child
             oldest_child = children_dict[max(children_dict, key = children_dict.get)]
 
+            # Add count depending on gender
             if oldest_child[-1] == "woman":
                 woman_count += 1
             if oldest_child[-1] == "man":
@@ -380,17 +397,21 @@ def multiple_partner(people_dict):
     for key in people_dict.keys():
         if people_dict[key][7] and people_dict[key][8] is not None: #make sure that father and mother is present
             
+            # Checks if mother has kids with another partner
             if people_dict[key][7] in parents_dict_female: 
                 if parents_dict_female[people_dict[key][7]] != people_dict[key][8]:
                     woman_count += 1
-    
+
+            # Adds mother to dict with father as value
             if people_dict[key][7] not in parents_dict_female: 
                 parents_dict_female[people_dict[key][7]] = people_dict[key][8]
 
+            # Checks if father has kids with another partner
             if people_dict[key][8] in parents_dict_male: 
                 if parents_dict_male[people_dict[key][8]] != people_dict[key][7]:
                     man_count += 1
-    
+
+            # Adds father to dict with mother as value
             if people_dict[key][8] not in parents_dict_male: 
                 parents_dict_male[people_dict[key][8]] = people_dict[key][7]
 
@@ -625,14 +646,19 @@ def notRealParent(people_dict):
     bastard: List
     List with CPR of children with at least one non-biological parent
     """
+    bastard = list()
     for key in people_dict.keys():
+
+        # Skip person if both parents are not present
         if people_dict[key][8] == None or people_dict[key][7] == None:
             continue
+        
+        # Finds blood type of person, mother and father in people_dict
         childblood = people_dict[key][5]
         fatherblood = people_dict[people_dict[key][8]][5]
         motherblood = people_dict[people_dict[key][7]][5]
 
-        bastard = list()
+        # If person has blood, which is unheritaged from parents, add person to bastard list.
         if childblood[-1] == "+" and fatherblood[-1] == "-" and motherblood[-1] == "-":
             bastard.append(key)
         elif childblood[:-1] == "AB" and (fatherblood[:-1] != "AB" or motherblood[:-1] != "AB"):
@@ -665,18 +691,22 @@ def fatherSonDonate(people_dict):
         son_receive = list()
         father_blood = people_dict[key][5]
         bloodtype = [father_blood]
+        # Skips person if person has no children
         if people_dict[key][6] is None:
             continue
         else:
             for child in people_dict[key][6]:
+                # Skips child if child is not a man
                 if people_dict[child][10] == "woman":
                     continue
                 else:
                     child_blood = people_dict[child][5]
+                    # Adds sons and blood types if father can donate blood to son
                     if father_blood[-1] == "-" or child_blood[-1] == "+":
                         if (father_blood[:-1] == "O" or child_blood[:-1] == "AB") or (father_blood[:-1] == "A" and child_blood[:-1] == "A") or (father_blood[:-1] == "B" and child_blood[:-1] == "B"):
                             son_receive.append(child)
                             bloodtype.append(child_blood)
+        # If sons can receive the blood add the father, sons and blood types to the list
         if son_receive != []:
             father_donate.append([key,son_receive,bloodtype])
     return father_donate
@@ -705,12 +735,18 @@ def grandchildDonate(grandparent_dict, people_dict):
         grandchild_donate = list()
         grandparent_blood = people_dict[key][5]
         bloodtype = [grandparent_blood]
+
+        # Iterate over grandchildren
         for child in grandparent_dict[key]:
             child_blood = people_dict[child][5]
+
+            # If grandchild can donate to grandparent, save child and blood type in lists
             if child_blood[-1] == "-" or grandparent_blood[-1] == "+":
                 if (child_blood[:-1] == "O" or grandparent_blood[:-1] == "AB") or (child_blood[:-1] == "A" and grandparent_blood[:-1] == "A") or (child_blood[:-1] == "B" and grandparent_blood[:-1] == "B"):
                     grandchild_donate.append(child)
                     bloodtype.append(child_blood)
+        
+        # If any of the grandchildren can donate add grandparent, grandchildren and blood type to list
         if grandchild_donate != []:
             receive_donate_blood.append([key,grandchild_donate,bloodtype])
     return receive_donate_blood
