@@ -115,7 +115,7 @@ normal/slim	11.15
 ______________________________________________________________________________
 Children with a not real parent according to their blood type
 
-CPR number
+CPR numbers
 260195-4304
 020599-0336
 201166-6306
@@ -230,8 +230,8 @@ Total: 110 children
 ______________________________________________________________________________
 Fathers there can donate blood to their sons
 
-Number of fathers there can donate blood:	92
-Number of sons there can receive blood:		122
+Number of fathers there can donate blood:	42
+Number of sons there can receive blood:		55
 ______________________________________________________________________________
 Grandchildren there can donate blood to a grandparent
 

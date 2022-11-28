@@ -692,7 +692,7 @@ def fatherSonDonate(people_dict):
         father_blood = people_dict[key][5]
         bloodtype = [father_blood]
         # Skips person if person has no children
-        if people_dict[key][6] is None:
+        if people_dict[key][6] is None or people_dict[key][10] == "man":
             continue
         else:
             for child in people_dict[key][6]:
