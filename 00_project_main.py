@@ -5,6 +5,7 @@ import sys
 import math
 from func_file import *
 
+#If no filename is given, ask for filename
 if len(sys.argv) == 1:
     try:
         infile = open(input("Please enter the filename: "), "r")
